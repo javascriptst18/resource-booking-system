@@ -26,6 +26,7 @@ bookings:[]
 const resources = [
 {
 resourceID: String,
+name: String,
 type: String,
 bookings: bookings[],
 description: String
