@@ -35,6 +35,13 @@ const mockResources = [
     name: "Watson",
     bookings: [],
     description: "This is some kind of super-computer. Very expensive."
+  },
+  {
+    resourceID: "6",
+    type: "Horse",
+    name: "Seabiscuit",
+    bookings: [],
+    description: "Neigh."
   }
 ];
 

@@ -1,5 +1,8 @@
 import React from 'react';
+import { Grid } from 'semantic-ui-react';
+import NavMenu from './NavMenu';
 import ResourceList from './ResourceList';
+
 
 class App extends React.Component {
 
@@ -9,7 +12,14 @@ class App extends React.Component {
 
   render() {
     return (
-      <ResourceList />
+      <Grid container centered relaxed>
+        <Grid.Row>
+          <NavMenu />
+        </Grid.Row>
+        <Grid.Row>
+          <ResourceList />
+        </Grid.Row>
+      </Grid>
     );
   }
 }

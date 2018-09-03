@@ -4,7 +4,7 @@ import ResourceModal from './ResourceModal';
 
 function ResourceCard(props) {
   return (
-    <Card>
+    <Card key={props.resourceID}>
       <Card.Content textAlign="center">
         <Card.Header>
           {props.name}
