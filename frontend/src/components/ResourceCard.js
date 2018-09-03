@@ -1,5 +1,6 @@
 import React from 'react';
 import { Card, Button } from 'semantic-ui-react';
+import ResourceModal from './ResourceModal';
 
 function ResourceCard(props) {
   return (
@@ -16,7 +17,7 @@ function ResourceCard(props) {
         </Card.Description>
       </Card.Content>
       <Card.Content extra textAlign="center">
-          <Button basic color="green"> Book </Button>
+          <ResourceModal {...props} />
       </Card.Content>
     </Card>
   )
