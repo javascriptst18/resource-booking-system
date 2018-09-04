@@ -10,6 +10,16 @@ class App extends React.Component {
     resources: [],
   }
 
+  componentDidMount() {
+    this.getAllResources()
+      .then(response => this.setState({ resources: response}))
+  }
+
+  getAllResources = () => {
+    return fetch('/resources')
+      .then(response => response.json());
+  }
+
   render() {
     return (
       <Grid container centered relaxed>
@@ -17,7 +27,7 @@ class App extends React.Component {
           <NavMenu />
         </Grid.Row>
         <Grid.Row>
-          <ResourceList />
+          <ResourceList resources={this.state.resources} />
         </Grid.Row>
       </Grid>
     );
