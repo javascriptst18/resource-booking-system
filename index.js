@@ -39,7 +39,7 @@ function isLoggedIn(request, response, next) { // IsLoggedIn is used as a parame
   });
 }
 
-app.post('/login', passport.authenticate('local'), function (request, response) {
+app.post('/login', passport.authenticate('local'), (request, response) => {
   response.json({
     username: request.user.username,
     _id: request.user._id
@@ -166,6 +166,5 @@ app.delete('/resources/:id', isLoggedIn, function (request, response) {
   Resource.findByIdAndRemove(request.params.id).then(document => {response.json(document)})});
 
 
-app.listen(3000);
-console.log('Development server successfully started. App running on port 3000');
-
+app.listen(4000);
+console.log('Development server successfully started. App running on port 4000');
