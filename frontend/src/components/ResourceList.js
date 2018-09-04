@@ -5,7 +5,7 @@ import ResourceCard from './ResourceCard';
 function ResourceList(props) {
 
   const resources = props.resources.map((resource) => 
-    <ResourceCard {...resource} />
+    <ResourceCard key={resource.resourceID} {...resource} />
   );
   
   return (
