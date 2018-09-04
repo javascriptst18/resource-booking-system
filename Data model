@@ -6,6 +6,7 @@ const bookings = [
 bookingID: String,
 resourceID: resourceID
 bookedByUser: userID,
+date: getDate()
 startTime: timeManager(), //function that splits the day in 24 or 48 parts
 endTime: timeManager(),
 comment: String,
