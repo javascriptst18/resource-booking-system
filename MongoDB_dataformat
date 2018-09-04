@@ -1,0 +1,85 @@
+const Booking = mongoose.model('bookings', {
+    bookingID: {
+        type: String,
+        required: true,
+    },
+    resourceID: {
+        type: String,
+        required: true,
+    },
+    bookedByUser: {
+        type: String,
+        required: true,
+    },
+    bookingTimeStamp: {
+        type: String,
+        required: true,
+    },
+    date: {
+        type: String,
+        required: true,
+    },
+    startTime: {
+        type: Number,
+        required: true,
+    },
+    endTime: {
+        type: Number,
+        required: true,
+    },
+    comment: {
+        type: String,
+        required: false,
+    },
+});
+
+const Resource = mongoose.model('resources', {
+
+    resourceID: {
+        type: Number,
+        required: true
+    },
+    name:{
+        type: String,
+        required: true,
+    },
+    category: {
+        type: String,
+        required: true
+    },
+    description: {
+        type: String,
+        required: true
+    },
+    bookings: {
+        type: Array,
+        required: true
+    },
+});
+
+const User = mongoose.model('users', {
+    userID: {
+        type: String,
+        required: true
+    },
+    firstName: {
+        type: String,
+        required: true
+    },
+    lastName: {
+        type: String,
+        required: true
+    },
+    email: {
+        type: String,
+        required: true
+    },
+    role: {
+        type: String,
+        required: true
+    },
+    bookings: {
+        type: Array,
+        required: false
+    }
+});
