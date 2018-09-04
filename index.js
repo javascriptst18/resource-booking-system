@@ -7,8 +7,8 @@ const passportLocalMongoose = require('passport-local-mongoose'); // Imports pas
 const cors = require('cors'); // Imports cors middleware to allow Cross-origin resource sharing
 const app = express(); // Instantiates an object 'app' through express() constructor
 const Todo = require('./models/todo');
-const Resource = require('./models/booking');
-const Booking = require('./models/resource');
+const Resource = require('./models/resource');
+const Booking = require('./models/booking');
 const UserSchema = require('./models/UserSchema');
 
 mongoose.connect('mongodb://jeremias:password01@ds139722.mlab.com:39722/resource-booking-system', { useNewUrlParser: true }); //Initiates connection to database
@@ -76,6 +76,16 @@ function getTimestamp(){
   return utcDate;
 }
 
+function getBookingsByResourceID(resourceID){
+  const matchArray = [];
+  for(let i in Booking){
+    if(Booking[i].resourceID === resourceID){
+      matchArray.push(Booking[i].bookingID)
+    }
+  }
+  return matchArray;
+}
+
 /************************ Routing *****************************/
 
 app.get("/", (request, response) => {
@@ -130,11 +140,15 @@ app.get('/resources', isLoggedIn, (request, response) => {
 
 app.post('/resources', isLoggedIn, function (request, response) {
 
-  const newResource = new Resource({
-    title: request.body.title,
-    username: request.user.username,
-    timestamp: getTimestamp()
-  });
+  const newResource = new Resource(
+    {
+      resourceID: request.body.resourceID,
+      category: request.body.category,
+      bookings: [],
+      description: request.body.description,
+      created: getTimestamp()
+    }
+  );
   newResource.save()
     .then(document => {
       response.json(document);
