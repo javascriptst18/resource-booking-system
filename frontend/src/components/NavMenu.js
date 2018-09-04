@@ -1,22 +1,32 @@
 import React from 'react';
-import { Menu, Dropdown, Button, Input } from 'semantic-ui-react';
+import {
+  Menu, Dropdown, Button, Input,
+} from 'semantic-ui-react';
+import DatePicker from 'react-datepicker';
+import moment from 'moment';
 
-function NavMenu(props) {
-  return (
-    <Menu size="huge" fluid>
-      <Menu.Item name="home" />
-      <Menu.Item name="My Bookings" />
+import 'react-datepicker/dist/react-datepicker.css';
 
-      <Menu.Menu position="right">
+class NavMenu extends React.Component {
+  state = {};
+
+  render() {
+    return (
+      <Menu vertical size="large" fixed="left">
         <Menu.Item>
-          <Input className="icon" icon="search" placeholder="Search..." />
+          <DatePicker inline selected={this.state.startDate} onChange={this.handleChange} />
         </Menu.Item>
         <Menu.Item>
-          <Button primary>Log In</Button>
+          <Button fluid color="blue">
+            Log In
+          </Button>
         </Menu.Item>
-      </Menu.Menu>
-    </Menu>
-  );
+        <Menu.Item>
+          <Button fluid>My Bookings</Button>
+        </Menu.Item>
+      </Menu>
+    );
+  }
 }
 
 export default NavMenu;
