@@ -4,8 +4,8 @@ const Booking = mongoose.model('Booking', {
   bookingID: {
     type: String
   },
-  resourceID: {
-    type: String
+  resource: {
+    type: Object
   },
   bookedByUser: {
     type: String
@@ -27,6 +27,5 @@ const Booking = mongoose.model('Booking', {
     required: true
   }
 });
-
 
 module.exports = Booking;
