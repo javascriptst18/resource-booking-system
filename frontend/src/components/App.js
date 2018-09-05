@@ -1,38 +1,47 @@
 import React from 'react';
-import { Grid } from 'semantic-ui-react';
-import NavMenu from './NavMenu';
-import ResourceList from './ResourceList';
-
-const API = {
-  resources: '/resources',
-  bookings: '/bookings',
-  myBookings: '/bookings/mybookings',
-};
+import LoginForm from './LoginForm';
 
 class App extends React.Component {
   state = {
-    resources: [],
+    user: '',
+    error: '',
+    isLoading: false
   };
 
   componentDidMount() {
-    this.apiGet(API.resources).then(response => this.setState({ resources: response }));
+    const user = localStorage.getItem('user');
+    if (user) {
+      this.setState({ user: JSON.parse(user) });
+    }
   }
 
-  apiGet = url => fetch(url).then(response => response.json());
+  login = (user) => {
+    this.setState({ user });
+    localStorage.setItem('user', JSON.stringify(user));
+  }
+
+  logout = () => {
+    fetch('/logout')
+      .then(() => {
+        this.setState({ user: '' });
+      })
+  }
 
   render() {
-    return (
-      <Grid container relaxed>
-        <Grid.Row columns={2}>
-          <Grid.Column width={3}>
-            <NavMenu />
-          </Grid.Column>
-          <Grid.Column width={12}>
-            <ResourceList resources={this.state.resources} />
-          </Grid.Column>
-        </Grid.Row>
-      </Grid>
-    );
+    if (this.state.user) {
+      return (
+        <div className="App container">
+          <button id="logout" onClick={this.logout}>Logout</button>
+          <div><p>Successfully logged in</p></div>
+        </div>
+      );
+    } else {
+      return (
+        <div className="App container">
+          <LoginForm login={this.login}/>
+        </div>
+      );
+    }
   }
 }
 
