@@ -6,11 +6,9 @@ const cookieParser = require('cookie-parser'); // Imports cookie-parser for stor
 const passportLocalMongoose = require('passport-local-mongoose'); // Imports passport-local-mongoose for saving user data to use for authentication against mlab.com
 const cors = require('cors'); // Imports cors middleware to allow Cross-origin resource sharing
 const app = express(); // Instantiates an object 'app' through express() constructor
-const Todo = require('./models/todo');
 const Resource = require('./models/resource');
 const Booking = require('./models/booking');
 const UserSchema = require('./models/UserSchema');
-const birds = require('./birds')
 mongoose.connect('mongodb://jeremias:password01@ds139722.mlab.com:39722/resource-booking-system', { useNewUrlParser: true }); //Initiates connection to database
 
 app.use(cors()); // Instructs app to use cors for cross-origin requests to mlab database
@@ -19,8 +17,6 @@ app.use(express.json()); // Instructs app to use express.json() to handle JSON
 app.use(express.urlencoded({ extended: true })); // Instructs app to use express.urlencoded to handle form-data from user
 app.use(cookieParser()); // Instructs app to saves cookies to request.cookies
 app.use(session({secret: "very secret message", resave: true, saveUninitialized: false}));
-
-app.use('/birds', birds)
 
 /************************ Authentication *****************************/
 UserSchema.plugin(passportLocalMongoose);
