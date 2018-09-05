@@ -14,7 +14,7 @@ const Resource = mongoose.model('Resource', {
     type: Array
   },
   description: {
-    type: String,
+    type: Array,
     required: true
   },
   created: {
