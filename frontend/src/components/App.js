@@ -1,10 +1,12 @@
 import React from 'react';
+import { Container, Menu, Button, Icon } from 'semantic-ui-react';
+import DatePicker from 'react-datepicker'; // Generates the calendar component
+import moment from 'moment'; // Required for react-datepicker
+
 import LoginForm from './LoginForm';
-import { Container, Menu, Button } from 'semantic-ui-react';
-import DatePicker from 'react-datepicker';
-import moment from 'moment';
+import NavBar from './NavBar';
 import ResourceList from './ResourceList';
-import mockResources from '../mockResources';
+import mockResources from '../mockResources'; // Mock resources will be replaced by a call to the backend API
 
 import 'react-datepicker/dist/react-datepicker.css';
 import './App.css';
@@ -22,6 +24,7 @@ class App extends React.Component {
     // if (user) {
     //   this.setState({ user: JSON.parse(user) });
     // }
+    // The above code threw an error, commented it out temporarily for development
   }
 
   login = user => {
@@ -38,11 +41,7 @@ class App extends React.Component {
   render() {
     return (
       <div>
-        <Menu fixed="top">
-          <Menu.Item position="right">
-            <Button color="blue">Log in</Button>
-          </Menu.Item>
-        </Menu>
+        <NavBar />
         <Container textAlign="center" style={{ marginTop: '5em', marginBottom: '1.5em' }}>
           <DatePicker
             selected={this.state.startDate}
@@ -54,7 +53,7 @@ class App extends React.Component {
             timeCaption="time"
           />
         </Container>
-        <Container textAlign="center">
+        <Container>
           <ResourceList resources={mockResources} />
         </Container>
       </div>

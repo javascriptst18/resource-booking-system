@@ -1,26 +1,13 @@
-/* .react-datepicker__day {
-  border: 1px solid lightgrey;
-  border-radius: 0.3rem;
-}
-
-.testClass {
-  
-  width: 60%;
-}
-
-.react-datepicker__month-container {
-  width: 100%;
-} */
-
+/* Fixes the padding issue in the time segment of react-datepicker */
 .react-datepicker__time-list {
   padding: 0;
 }
 
+/* Styling for the date selection box */
 input[type=text] {
   border: 2px solid lightgrey;
-
-  border-radius: 2em;  
-  line-height: 2em;
+  border-radius: 1.5em;  
+  line-height: 2.5em;
   text-align: center;
   font-weight: 600;
   font-size: 1.1em;
