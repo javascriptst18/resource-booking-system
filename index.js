@@ -6,11 +6,9 @@ const cookieParser = require('cookie-parser'); // Imports cookie-parser for stor
 const passportLocalMongoose = require('passport-local-mongoose'); // Imports passport-local-mongoose for saving user data to use for authentication against mlab.com
 const cors = require('cors'); // Imports cors middleware to allow Cross-origin resource sharing
 const app = express(); // Instantiates an object 'app' through express() constructor
-const Todo = require('./models/todo');
 const Resource = require('./models/resource');
 const Booking = require('./models/booking');
 const UserSchema = require('./models/UserSchema');
-
 mongoose.connect('mongodb://jeremias:password01@ds139722.mlab.com:39722/resource-booking-system', { useNewUrlParser: true }); //Initiates connection to database
 
 app.use(cors()); // Instructs app to use cors for cross-origin requests to mlab database
@@ -35,7 +33,7 @@ function isLoggedIn(request, response, next) { // IsLoggedIn is used as a parame
     return next();}
   response.status(401).json({
     type: 'ERROR',
-    message: 'Unauthorized'
+    message: '401 - Authentication required'
   });
 }
 
@@ -50,7 +48,7 @@ app.get('/logout', (request, response) => {
   request.logout();
   response.json({
     type: 'SUCCESS',
-    message: 'Logout successful'
+    message: `${request.body.username} successfully logged out`
   })
 })
 
@@ -62,7 +60,7 @@ app.post('/register', function (request, response) {
     passport.authenticate('local')(request, response, () => {
       response.json({
         type: 'SUCCESS',
-        message: 'User registered'
+        message: `User ${request.body.username} successfully registered`
       });
     });
   });
@@ -93,23 +91,16 @@ app.get("/", (request, response) => {
 });
 
 
-/************************ /bookings *****************************/
+/************************ /open view *****************************/
 
-app.get(`/bookings`, function (request, response) {
+app.get(`/bookings`, (request, response) => {
   Booking.find({})
     .then(documents => {
       response.json(documents);
     });
 });
 
-app.get('/bookings/mybookings', function (request, response){
-  Booking.find({bookedByUser: request.user.username})
-    .then(documents => {
-      response.json(documents);
-    });
-})
-
-app.get('/bookings/:id', function (request, response) {
+app.get('/bookings/:id', (request, response) => {
   const bookingID = request.params.id.toString();
   Booking.find({ bookingID: bookingID })
     .then((document) => {
@@ -117,26 +108,55 @@ app.get('/bookings/:id', function (request, response) {
     });
 });
 
+app.get('/resources', (request, response) => {
+  Resource.find({})
+    .then(documents => {
+      response.json(documents);
+    })
+});
+
+app.get('/resources/:id', (request, response) => {
+  const resourceID = request.params.id.toString();
+  Resource.find({resourceID: resourceID})
+    .then(document => {
+      response.json(document);
+    })
+});
+
+/************************ /protected view ************************/
+
+app.get('/bookings/', isLoggedIn, (request, response) =>{
+  Booking.find({bookedByUser: request.user.username})
+    .then(documents => {
+      response.json(documents);
+    });
+})
+
 app.post('/bookings', isLoggedIn, function (request, response) {
   const newBooking = new Booking(
     { bookingID: request.body.bookingID,
       resourceID: request.body.resourceID,
       bookedByUser: request.user.username,
       bookingTimestamp: getTimestamp(),
-      date: request.body.date,
+      date: request.body,
       startTime: request.body.startTime,
       endTime: request.body.endTime,
       comment: request.body.comment,}
   );
-  newBooking.save().then(document => {response.json(document)})});
+  newBooking.save().then(document => {response.json(document)});
+});
 
-/************************ /resources *****************************/
-app.get('/resources', isLoggedIn, (request, response) => {
-  Resource.find({})
-    .then(documents => {
-      response.json(documents);
+app.patch('/bookings/:id', isLoggedIn, (request, response) =>{
+  Booking.findByIdAndUpdate(request.params.bookingID,req.body,{new: true},
+    (err, Booking) => {if (err) return response.status(500).send(err);
+      return response.send(Booking);
     })
 });
+
+app.delete('/bookings/:id', isLoggedIn, function (request, response) {
+  Booking.findByIdAndRemove(request.params.id).then(document => {response.json(document)})});
+
+/************************ /adminView ************************/
 
 app.post('/resources', isLoggedIn, function (request, response) {
 
@@ -153,13 +173,6 @@ app.post('/resources', isLoggedIn, function (request, response) {
     .then(document => {
       response.json(document);
     });
-});
-
-app.get('/resources/:id', isLoggedIn, function (request, response) {
-  Resource.findById(request.params.id)
-    .then(document => {
-      response.json(document);
-    })
 });
 
 app.delete('/resources/:id', isLoggedIn, function (request, response) {
