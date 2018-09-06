@@ -4,6 +4,7 @@ import { Container, Menu, Button } from 'semantic-ui-react';
 import DatePicker from 'react-datepicker';
 import moment from 'moment';
 import ResourceList from './ResourceList';
+import mockResources from '../mockResources';
 
 import 'react-datepicker/dist/react-datepicker.css';
 import './App.css';
@@ -42,8 +43,19 @@ class App extends React.Component {
             <Button color="blue">Log in</Button>
           </Menu.Item>
         </Menu>
-        <Container textAlign="center" style={{ marginTop: '5em' }}>
-          <DatePicker dateFormat="DD MMM YYYY" selected={this.state.startDate} onChange={this.handleChange} />
+        <Container textAlign="center" style={{ marginTop: '5em', marginBottom: '1.5em' }}>
+          <DatePicker
+            selected={this.state.startDate}
+            onChange={this.handleChange}
+            showTimeSelect
+            timeFormat="HH:mm"
+            timeIntervals={15}
+            dateFormat="LLL"
+            timeCaption="time"
+          />
+        </Container>
+        <Container textAlign="center">
+          <ResourceList resources={mockResources} />
         </Container>
       </div>
     );
