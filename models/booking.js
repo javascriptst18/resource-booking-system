@@ -1,31 +1,14 @@
-const mongoose = require('mongoose'); // Imports mongoose driver for connection to cloud-hosted mongoDB at mlab.com
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
 
-const Booking = mongoose.model('Booking', {
-  bookingID: {
-    type: String
-  },
-  resource: {
-    type: Object
-  },
-  bookedByUser: {
-    type: String
-  },
-  bookingTimestamp:{
-    type: String
-  },
-  date: {
-    type: String
-  },
-  startTime: {
-    type: String
-  },
-  endTime: {
-    type: String
-  },
-  comment: {
-    type: String,
-    required: true
-  }
+const BookingSchema = new Schema({
+  bookingID: String,
+  resourceID: String,
+  bookedByUser: String,
+  dateTimeFrom: Date,
+  dateTimeTo: Date,
+  bookingTimestamp: Date,
+  comment: String,
 });
 
-module.exports = Booking;
+module.exports = mongoose.model('Booking', BookingSchema);
