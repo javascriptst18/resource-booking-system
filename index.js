@@ -14,12 +14,12 @@ const UserSchema = require('./models/UserSchema');
 // Initiates connection to database
 mongoose.connect('mongodb://jeremias:password01@ds139722.mlab.com:39722/resource-booking-system', { useNewUrlParser: true });
 
-const bodyParser = require('body-parser');
-const url = require('url');
-const querystring = require('querystring');
-
-const birds = require('./birds')
-app.use('/birds', birds)
+const api = require('./routes/api')
+app.use('/api-help', api)
+const bookings = require('./routes/bookings')
+app.use('/bookings', bookings)
+const resources = require('./routes/resources')
+app.use('/resources', resources)
 
 app.use(cors()); // Instructs app to use cors for cross-origin requests to mlab database
 app.use(express.static('frontend/build')); // Instructs app to use express.static (./public) at initial GET requests and serve this file to user
@@ -112,43 +112,9 @@ app.get('/', (request, response) => {
   response.sendFile('index.html');
 });
 
-
-/** ********************** /open view **************************** */
-
-app.get('/bookings', (request, response) => {
-  Booking.find({})
-    .then((documents) => {
-      response.json(documents);
-    });
-});
-
-app.get('/bookings/:id', (request, response) => {
-  const bookingID = request.params.id.toString();
-  Booking.find({ bookingID })
-    .then((document) => {
-      response.json(document);
-    });
-});
-
-app.get('/resources', (request, response) => {
-  Resource.find({})
-    .then((documents) => {
-      response.json(documents);
-    });
-});
-
-app.get('/resources/:id', (request, response) => {
-  const resourceID = request.params.id.toString();
-  Resource.find({ resourceID })
-    .then((document) => {
-      response.json(document);
-    });
-});
-
-
 /** ********************** /protected view *********************** */
 
-app.get('/bookings/', isLoggedIn, (request, response) => {
+app.get('/bookings/mybookings', isLoggedIn, (request, response) => {
   Booking.find({ bookedByUser: request.user.username })
     .then((documents) => {
       response.json(documents);
@@ -161,10 +127,7 @@ app.post('/bookings', isLoggedIn, (request, response) => {
       bookingID: request.body.bookingID,
       resourceID: request.body.resourceID,
       bookedByUser: request.user.username,
-      dateTimeFrom: request.body.dateTimeFrom,
-      dateTimeTo: request.body.dateTimeTo,
-      bookingTimestamp: getTimestamp(),
-      comment: request.body.comment,
+      date: request.body.date,
     },
   );
   newBooking.save().then((document) => { response.json(document); });
@@ -190,9 +153,8 @@ app.post('/resources', isLoggedIn, (request, response) => {
     {
       resourceID: request.body.resourceID,
       category: request.body.category,
-      description: request.body.description.split(''),
+      description: request.body.description,
       bookings: [],
-      created: date.toUTCString(),
     },
   );
   newResource.save()
