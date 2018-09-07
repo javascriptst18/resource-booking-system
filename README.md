@@ -8,6 +8,13 @@ GET all possible queries and paths
 
 **/login**
 POST login
+username: <USERNAME>
+password: <PASSWORD>
+
+**/register**
+POST register new user
+username: <USERNAME>
+password: <PASSWORD>
 
 **/bookings**
 GET all bookings - Queries: bookingID, date, username
