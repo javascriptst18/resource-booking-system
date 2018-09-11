@@ -1,3 +1,4 @@
+const os = require('os'); 
 const express = require('express');
 const mongoose = require('mongoose'); // Imports mongoose driver for connection to cloud-hosted mongoDB at mlab.com
 const cors = require('cors'); // Imports cors middleware to allow Cross-origin resource sharing
@@ -21,7 +22,8 @@ app.use(morgan('dev'));
 mongoose.Promise = global.Promise;
 mongoose.connect(config.DB_CONN, { useNewUrlParser: true }, (error) => { if(error) throw (error); console.log("Connection to [ds139722.mlab.com] successfully established")});
 
-const os = require('os'); console.log(os.networkInterfaces().WiFi[3]);
+// console.log(os.networkInterfaces().WiFi[3]);
+// This creates an error on non-wifi devices
 
 app.listen(config.PORT);
 console.log('Development server successfully started. App running on port ' + config.PORT);
