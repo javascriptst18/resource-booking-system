@@ -42,7 +42,6 @@ class TimeBar extends React.Component {
         <div className="tempClass2" />
         <div className="tempClass2" />
         <div className="tempClass2" />
-
       </Container>
     );
   }

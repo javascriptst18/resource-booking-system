@@ -1,4 +1,5 @@
 import React from 'react';
+import { Route, Switch } from 'react-router-dom';
 import { Container, Menu, Button, Icon } from 'semantic-ui-react';
 import DatePicker from 'react-datepicker'; // Generates the calendar component
 import moment from 'moment'; // Required for react-datepicker
@@ -17,9 +18,11 @@ class App extends React.Component {
     error: '',
     isLoading: false,
     startDate: moment(),
+    allResources: [],
   };
 
   componentDidMount() {
+    this.getAllResources();
     // const user = localStorage.getItem('user');
     // if (user) {
     //   this.setState({ user: JSON.parse(user) });
@@ -38,6 +41,10 @@ class App extends React.Component {
     });
   };
 
+  getAllResources = () => {
+    fetch('/resources').then(res => res.json()).then(res => this.setState({allResources: res}));
+  }
+
   render() {
     return (
       <div>
@@ -54,7 +61,10 @@ class App extends React.Component {
           />
         </Container>
         <Container>
-          <ResourceList resources={mockResources} />
+          <Switch>
+            <Route path="/login" render={props => <LoginForm {...props} />} />
+            <Route path="/" render={props => <ResourceList {...props} resources={this.state.allResources} />} />
+          </Switch>
         </Container>
       </div>
     );
