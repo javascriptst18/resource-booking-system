@@ -1,0 +1,39 @@
+import React from 'react';
+
+class FetchComponent extends React.Component {
+
+  fetchBookings = () => {
+    fetch('/bookings')
+      .then((response) => response.json())
+      .then(console.log);
+  };
+
+  fetchResources = () => {
+    fetch('/resources')
+      .then((response) => response.json())
+      .then(console.log);
+  };
+
+  fetchApi = () => {
+    fetch('/api-help')
+      .then((response) => response.json())
+      .then(console.log);
+  };
+
+
+  render() {
+    return (
+
+      <div className="App container">
+        <button id="logout" onClick={this.logout}>Logout</button>
+        <div><p>Successfully logged in</p></div>
+        <button onClick={this.fetchBookings}>Fetch bookings</button>
+        <button onClick={this.fetchResources}>Fetch resources</button>
+        <button onClick={this.fetchApi}>Fetch Api help</button>
+
+      </div>
+    );
+  }
+}
+
+export default FetchComponent;
