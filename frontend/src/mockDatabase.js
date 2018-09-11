@@ -1,6 +1,6 @@
 // Mock resources for development
 
-const mockResources = [
+const mockDatabase = [
   {
     resourceID: "1",
     category: "Venue",
@@ -63,4 +63,4 @@ const mockResources = [
   }
 ];
 
-export default mockResources;
+export default mockDatabase;

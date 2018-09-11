@@ -5,19 +5,20 @@ import { Container, Menu, Button, Icon } from 'semantic-ui-react';
 import LoginForm from './LoginForm';
 import NavBar from './NavBar';
 import ResourceList from './ResourceList';
-import mockResources from '../mockResources'; // Mock resources will be replaced by a call to the backend API
+import mockDatabase from '../mockDatabase'; // Mock resources will be replaced by a call to the backend API
 
 class App extends React.Component {
   state = {
     user: '',
     error: '',
     isLoading: false,
-
+    bookings: [],
     allResources: [],
   };
 
   componentDidMount() {
     this.fetchResources().then(res => this.setState({ allResources: res }));
+    this.fetchBookings().then(res => this.setState({ bookings: res }))
     // const user = localStorage.getItem('user');
     // if (user) {
     //   this.setState({ user: JSON.parse(user) });
@@ -37,9 +38,8 @@ class App extends React.Component {
   };
 
   fetchBookings = () => {
-    fetch('/bookings')
-      .then(response => response.json())
-      .then(console.log);
+    return fetch('/bookings')
+      .then(response =>  response.json());
   };
 
   fetchResources = () => {
