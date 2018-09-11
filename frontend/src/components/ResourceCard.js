@@ -11,7 +11,7 @@ function ResourceCard(props) {
         {props.tags.map(tag => <p> {tag} </p>)}
       </Segment> */}
         <Card.Header>{props.name}</Card.Header>
-        <Card.Meta>{props.type}</Card.Meta>
+        <Card.Meta>{props.category}</Card.Meta>
         <Card.Description>{props.description}</Card.Description>
       </Card.Content>
       <Card.Content>

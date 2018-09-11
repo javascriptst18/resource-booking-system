@@ -22,7 +22,7 @@ class App extends React.Component {
   };
 
   componentDidMount() {
-    this.getAllResources();
+    this.fetchResources().then(res => this.setState({ allResources: res }));
     // const user = localStorage.getItem('user');
     // if (user) {
     //   this.setState({ user: JSON.parse(user) });
@@ -41,9 +41,22 @@ class App extends React.Component {
     });
   };
 
-  getAllResources = () => {
-    fetch('/resources').then(res => res.json()).then(res => this.setState({allResources: res}));
-  }
+  fetchBookings = () => {
+    fetch('/bookings')
+      .then((response) => response.json())
+      .then(console.log);
+  };
+
+  fetchResources = () => {
+    return fetch('/resources')
+      .then((response) => response.json())
+  };
+
+  fetchApi = () => {
+    fetch('/api-help')
+      .then((response) => response.json())
+      .then(console.log);
+  };
 
   render() {
     return (

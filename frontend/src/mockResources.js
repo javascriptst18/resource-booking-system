@@ -3,7 +3,7 @@
 const mockResources = [
   {
     resourceID: "1",
-    type: "Venue",
+    category: "Venue",
     name: "Big Room",
     bookings: [{ startTime: new Date('2018', '8', '11', '10', '30'), endTime: new Date('2018', '8', '11', '11', '30') }],
     description: "This is a nice big room",
@@ -12,7 +12,7 @@ const mockResources = [
   },
   {
     resourceID: "2",
-    type: "Venue",
+    category: "Venue",
     name: "Small Room",
     bookings: [{startTime: 0, endTime: 0}],
     description: "This is a cozy little room",
@@ -21,7 +21,7 @@ const mockResources = [
   },
   {
     resourceID: "3",
-    type: "Car",
+    category: "Car",
     name: "Ferrari Model B",
     bookings: [{ startTime: 0, endTime: 0 }],
     description: "This is a really fast car. Too fast.",
@@ -30,7 +30,7 @@ const mockResources = [
   },
   {
     resourceID: "4",
-    type: "Car",
+    category: "Car",
     name: "Volvo Model B",
     bookings: [{ startTime: 0, endTime: 0 }],
     description: "This is a regular car. Goes regular speed.",
@@ -39,7 +39,7 @@ const mockResources = [
   },
   {
     resourceID: "5",
-    type: "Computer",
+    category: "Computer",
     name: "Watson",
     bookings: [{ startTime: 0, endTime: 0 }],
     description: "This is some kind of super-computer. Very expensive.",
@@ -48,7 +48,7 @@ const mockResources = [
   },
   {
     resourceID: "6",
-    type: "Horse",
+    category: "Horse",
     name: "Seabiscuit",
     bookings: [{ startTime: 0, endTime: 0 }],
     description: "Neigh.",
