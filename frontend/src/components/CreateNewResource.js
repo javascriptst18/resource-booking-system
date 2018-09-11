@@ -1,5 +1,5 @@
 import React from 'react';
-import { Form, Container, Button, Divider } from 'semantic-ui-react';
+import { Form, Container, Button, Divider, Header } from 'semantic-ui-react';
 
 class CreateNewResource extends React.Component {
   state = {};
@@ -7,13 +7,21 @@ class CreateNewResource extends React.Component {
   render() {
     return (
       <Container fluid textAlign="left" style={{ marginTop: '5em' }}>
-        <Form>
-          <Form.Input  label="Name" placeholder="(ex. Meeting Room 5)" />
-          <Form.Input  label="Category" placeholder="(ex. Venue or Equipment)" />
-          <Form.Input  label="Description" placeholder="Describe this resource" />
+        <Header dividing textAlign="right"style={{ marginTop: '3em', marginBottom: '1em' }}>
+          <i>Create a new resource</i>
+        </Header>
+        <Form size="big">
+          <Form.Input label="Name" placeholder="(ex. Meeting Room 5)" />
+          <Form.Input label="Category" placeholder="(ex. Venue or Equipment)" />
+          <Form.Input label="Description" placeholder="Describe this resource" />
         </Form>
         <Divider hidden />
-        <Button type='submit'>Create New Resource</Button>
+        <Button floated="left" type="submit">
+          Create New Resource
+        </Button>
+        <Button floated="right" type="submit">
+          Cancel
+        </Button>
       </Container>
     );
   }

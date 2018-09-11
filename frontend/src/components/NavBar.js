@@ -6,13 +6,20 @@ import { Link } from 'react-router-dom';
 // The Button component will render the login form
 function NavBar(props) {
   return (
-    <Menu  fixed="top">
+    <Menu borderless compact fixed="top">
       <Menu.Item icon position="left">
         <Icon name="search" size="big" />
       </Menu.Item>
-      <Menu.Item position="right">
+      <Menu.Item header>
+        <Menu.Header>
+          <h2>
+             Resource Booker 
+          </h2>
+        </Menu.Header>
+      </Menu.Item>
+      <Menu.Item icon position="right">
         <Link to="/login">
-          <Button color="blue">Log in</Button>
+          <Icon color="black" name="user circle" size="big" />
         </Link>
       </Menu.Item>
     </Menu>
