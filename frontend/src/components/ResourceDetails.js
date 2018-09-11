@@ -1,4 +1,6 @@
+// WIP
 import React from 'react';
+import { Card, Segment } from 'semantic-ui-react';
 
 class ResourceDetails extends React.Component {
   state = {};

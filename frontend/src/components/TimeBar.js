@@ -9,10 +9,10 @@ class TimeBar extends React.Component {
   state = {};
 
   render() {
-    console.log(this.props.bookings);
+    console.log(this.props);
 
     return (
-      <Container className="timebar" fluid textAlign="center" vert>
+      <Container className="timebar" fluid textAlign="center">
         <div className="tempClass" />
         <div className="tempClass" />
         <div className="tempClass" />

@@ -18,7 +18,8 @@ input[type=text] {
 }
 
 .react-datepicker-wrapper {
-  width: 80%;
+  width: 90%;
+  margin: 1em 0 1.5em 0;
 }
 
 .react-datepicker__input-container {
