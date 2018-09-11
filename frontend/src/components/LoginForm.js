@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { Container } from 'semantic-ui-react';
 
 class LoginForm extends Component {
 
@@ -36,7 +37,7 @@ class LoginForm extends Component {
 
   render() {
     return (
-      <div className="Login">
+      <Container fluid textAlign="left" style={{ marginTop: '5em' }}>
         <form onSubmit={this.onSubmit}>
           <label htmlFor="username">Username</label>
           <input type="text" className="form-control" id="username" name="username" placeholder="Enter username" onChange={this.handleChange} value={this.state.email}/>
@@ -48,7 +49,7 @@ class LoginForm extends Component {
 
           <button type="submit">Submit</button>;
         </form>
-      </div>
+      </Container>
   )
     ;
   }

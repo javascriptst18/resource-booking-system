@@ -5,6 +5,7 @@ import { Container, Menu, Button, Icon } from 'semantic-ui-react';
 import LoginForm from './LoginForm';
 import NavBar from './NavBar';
 import ResourceList from './ResourceList';
+import CreateNewResource from './CreateNewResource';
 import mockDatabase from '../mockDatabase'; // Mock resources will be replaced by a call to the backend API
 
 class App extends React.Component {
@@ -18,7 +19,7 @@ class App extends React.Component {
 
   componentDidMount() {
     this.fetchResources().then(res => this.setState({ allResources: res }));
-    this.fetchBookings().then(res => this.setState({ bookings: res }))
+    this.fetchBookings().then(res => this.setState({ bookings: res }));
     // const user = localStorage.getItem('user');
     // if (user) {
     //   this.setState({ user: JSON.parse(user) });
@@ -38,8 +39,7 @@ class App extends React.Component {
   };
 
   fetchBookings = () => {
-    return fetch('/bookings')
-      .then(response =>  response.json());
+    return fetch('/bookings').then(response => response.json());
   };
 
   fetchResources = () => {
@@ -56,12 +56,11 @@ class App extends React.Component {
     return (
       <div>
         <NavBar />
-        <Container fluid textAlign="center" style={{ marginTop: '5em', marginBottom: '1.5em' }}>
-          <Switch>
-            <Route exact path="/" render={props => <ResourceList {...props} resources={this.state.allResources} />} />
-            <Route path="/login" render={props => <LoginForm {...props} />} />
-          </Switch>
-        </Container>
+        <Switch>
+          <Route exact path="/" render={props => <ResourceList {...props} resources={this.state.allResources} />} />
+          <Route path="/login" render={props => <LoginForm {...props} />} />
+          <Route path="/newresource" render={props => <CreateNewResource {...props} />} />
+        </Switch>
       </div>
     );
 
