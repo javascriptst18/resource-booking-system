@@ -4,6 +4,7 @@ import { Route, Switch } from 'react-router-dom';
 import LoginForm from './LoginForm';
 import NavBar from './NavBar';
 import ResourceList from './ResourceList';
+import ResourceDetails from './ResourceDetails';
 import CreateNewResource from './CreateNewResource';
 // import mockDatabase from '../mockDatabase'; // Mock resources will be replaced by a call to the backend API
 
@@ -59,6 +60,7 @@ class App extends React.Component {
           <Route exact path="/" render={props => <ResourceList {...props} resources={this.state.allResources} />} />
           <Route path="/login" render={props => <LoginForm {...props} />} />
           <Route path="/newresource" render={props => <CreateNewResource {...props} />} />
+          <Route path="/resources/:id" render={props => <ResourceDetails {...props} />} />
         </Switch>
       </div>
     );

@@ -34,7 +34,7 @@ class CreateNewResource extends React.Component {
   render() {
     const { identifier, category, description } = this.state;
     return (
-      <Container fluid textAlign="left" style={{ marginTop: '5em' }}>
+      <Container textAlign="left" style={{ marginTop: '5em' }}>
         <Header dividing textAlign="right" style={{ marginTop: '3em', marginBottom: '1em' }}>
           <i>Create a new resource</i>
         </Header>

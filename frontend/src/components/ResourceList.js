@@ -10,7 +10,7 @@ import 'react-datepicker/dist/react-datepicker.css';
 import './datepicker-custom.css';
 
 class ResourceList extends React.Component {
-  
+
   state = {
     startDate: moment(),
   };
@@ -19,7 +19,7 @@ class ResourceList extends React.Component {
     const resources = this.props.resources.map(resource => <ResourceCard {...resource} key={Math.random()} />);
 
     return (
-      <Container fluid textAlign="center" style={{ marginTop: '5em' }}>
+      <Container fluid textAlign="center" style={{ marginTop: '4.5em' }}>
         <DatePicker
           className="DPclass"
           selected={this.state.startDate}
