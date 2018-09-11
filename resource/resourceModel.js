@@ -4,7 +4,7 @@ const Schema = mongoose.Schema;
 
 const ResourceSchema = new Schema({
     resourceID: Schema.Types.ObjectId,
-    name: String,
+    identifier: String,
     category: String,
     bookings: [{ type: Schema.Types.ObjectId, ref: 'Booking' }],
     tags: Array,

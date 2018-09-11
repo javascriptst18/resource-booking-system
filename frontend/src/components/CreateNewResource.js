@@ -2,26 +2,67 @@ import React from 'react';
 import { Form, Container, Button, Divider, Header } from 'semantic-ui-react';
 
 class CreateNewResource extends React.Component {
-  state = {};
+  state = {
+    identifier: '',
+    category: '',
+    description: '',
+  };
+
+  newResourceRequest = () => {
+    let reqbody = {
+      identifier: this.state.identifier,
+      category: this.state.category,
+      description: this.state.description,
+    };
+    
+    fetch('/resources', {
+      method: 'POST',
+      headers: {
+        'Accept': 'application/json',
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify(reqbody)
+    }).then(response => response.json()).then(response => console.log(response));
+  };
+
+  handleChange = (e, { name, value }) => this.setState({ [name]: value });
+
+  handleSubmit = () => {
+    this.newResourceRequest();
+  };
 
   render() {
+    const { identifier, category, description } = this.state;
     return (
       <Container fluid textAlign="left" style={{ marginTop: '5em' }}>
-        <Header dividing textAlign="right"style={{ marginTop: '3em', marginBottom: '1em' }}>
+        <Header dividing textAlign="right" style={{ marginTop: '3em', marginBottom: '1em' }}>
           <i>Create a new resource</i>
         </Header>
-        <Form size="big">
-          <Form.Input label="Name" placeholder="(ex. Meeting Room 5)" />
-          <Form.Input label="Category" placeholder="(ex. Venue or Equipment)" />
-          <Form.Input label="Description" placeholder="Describe this resource" />
+        <Form size="big" onSubmit={this.handleSubmit}>
+          <Form.Input label="Name" name="identifier" value={identifier} placeholder="(ex. Meeting Room 5)" onChange={this.handleChange} />
+          <Form.Input
+            label="Category"
+            name="category"
+            value={category}
+            placeholder="(ex. Venue or Equipment)"
+            onChange={this.handleChange}
+          />
+          <Form.Input
+            label="Description"
+            name="description"
+            value={description}
+            placeholder="Describe this resource"
+            onChange={this.handleChange}
+          />
+
+          <Divider hidden />
+          <Button size="large" floated="left" type="submit" color="green">
+            Create New Resource
+          </Button>
+          <Button size="large" floated="right" type="cancel" color="red">
+            Cancel
+          </Button>
         </Form>
-        <Divider hidden />
-        <Button floated="left" type="submit">
-          Create New Resource
-        </Button>
-        <Button floated="right" type="submit">
-          Cancel
-        </Button>
       </Container>
     );
   }

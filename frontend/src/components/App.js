@@ -1,12 +1,11 @@
 import React from 'react';
-import { Route, Link, Switch } from 'react-router-dom';
-import { Container, Menu, Button, Icon } from 'semantic-ui-react';
+import { Route, Switch } from 'react-router-dom';
 
 import LoginForm from './LoginForm';
 import NavBar from './NavBar';
 import ResourceList from './ResourceList';
 import CreateNewResource from './CreateNewResource';
-import mockDatabase from '../mockDatabase'; // Mock resources will be replaced by a call to the backend API
+// import mockDatabase from '../mockDatabase'; // Mock resources will be replaced by a call to the backend API
 
 class App extends React.Component {
   state = {

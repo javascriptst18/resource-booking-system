@@ -1,6 +1,6 @@
 // This component generates the fixed navigation bar on the top of the page
 import React from 'react';
-import { Menu, Button, Icon } from 'semantic-ui-react';
+import { Menu, Icon } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
 // The Button component will render the login form

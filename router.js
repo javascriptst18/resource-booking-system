@@ -12,7 +12,7 @@ mainRouter.use('/resources', resourceController);
 mainRouter.use('/users', userController);
 
 mainRouter.get('/', function(req, res) {
-    res.sendFile('C:\\Users\\Administrator\\Google Drive\\academy\\Resursbokning\\resursbokningssystem\\public\\index.html')
+    res.sendFile('./frontend/build/public/index.html')
 });
 
 module.exports = mainRouter;
