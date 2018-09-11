@@ -1,12 +1,39 @@
 // This component renders a Card Group with ResourceCards
 import React from 'react';
-import { Card } from 'semantic-ui-react';
+import { Card, Container } from 'semantic-ui-react';
+import DatePicker from 'react-datepicker';
+import moment from 'moment'; // Required for react-datepicker
+
 import ResourceCard from './ResourceCard';
 
-function ResourceList(props) {
-  const resources = props.resources.map(resource => <ResourceCard {...resource} key={resource.resourceID} />);
+import 'react-datepicker/dist/react-datepicker.css';
+import './datepicker-custom.css';
 
-  return <Card.Group>{resources}</Card.Group>;
+class ResourceList extends React.Component {
+
+  state = {
+    startDate: moment(),
+  };
+
+  render() {
+    const resources = this.props.resources.map(resource => <ResourceCard {...resource} key={Math.random()} />);
+
+    return (
+      <Container fluid textAlign="center" style={{ marginTop: '4.5em' }}>
+        <DatePicker
+          className="DPclass"
+          selected={this.state.startDate}
+          onChange={this.handleChange}
+          showTimeSelect
+          timeFormat="HH:mm"
+          timeIntervals={15}
+          dateFormat="LLL"
+          timeCaption="time"
+        />
+        <Card.Group>{resources}</Card.Group>
+      </Container>
+    );
+  }
 }
 
 export default ResourceList;

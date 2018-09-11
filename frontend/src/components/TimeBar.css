@@ -1,0 +1,17 @@
+.tempClass {
+  background-color: lightgreen;
+  height: 2em;
+  width: 0.7em;
+  display: inline-block;
+}
+
+.tempClass2 {
+  background-color: lightcoral;
+  height: 2em;
+  width: 0.5em;
+  display: inline-block;
+}
+
+/* .timebar {
+  border: 1px solid black;
+} */

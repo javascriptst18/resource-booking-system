@@ -1,25 +1,25 @@
 import React from 'react';
-import { Container, Menu, Button, Icon } from 'semantic-ui-react';
-import DatePicker from 'react-datepicker'; // Generates the calendar component
-import moment from 'moment'; // Required for react-datepicker
+import { Route, Switch } from 'react-router-dom';
 
 import LoginForm from './LoginForm';
 import NavBar from './NavBar';
 import ResourceList from './ResourceList';
-import mockResources from '../mockResources'; // Mock resources will be replaced by a call to the backend API
-
-import 'react-datepicker/dist/react-datepicker.css';
-import './App.css';
+import ResourceDetails from './ResourceDetails';
+import CreateNewResource from './CreateNewResource';
+// import mockDatabase from '../mockDatabase'; // Mock resources will be replaced by a call to the backend API
 
 class App extends React.Component {
   state = {
     user: '',
     error: '',
     isLoading: false,
-    startDate: moment(),
+    bookings: [],
+    allResources: [],
   };
 
   componentDidMount() {
+    this.fetchResources().then(res => this.setState({ allResources: res }));
+    this.fetchBookings().then(res => this.setState({ bookings: res }));
     // const user = localStorage.getItem('user');
     // if (user) {
     //   this.setState({ user: JSON.parse(user) });
@@ -38,24 +38,30 @@ class App extends React.Component {
     });
   };
 
+  fetchBookings = () => {
+    return fetch('/bookings').then(response => response.json());
+  };
+
+  fetchResources = () => {
+    return fetch('/resources').then(response => response.json());
+  };
+
+  fetchApi = () => {
+    fetch('/api-help')
+      .then(response => response.json())
+      .then(console.log);
+  };
+
   render() {
     return (
       <div>
         <NavBar />
-        <Container textAlign="center" style={{ marginTop: '5em', marginBottom: '1.5em' }}>
-          <DatePicker
-            selected={this.state.startDate}
-            onChange={this.handleChange}
-            showTimeSelect
-            timeFormat="HH:mm"
-            timeIntervals={15}
-            dateFormat="LLL"
-            timeCaption="time"
-          />
-        </Container>
-        <Container>
-          <ResourceList resources={mockResources} />
-        </Container>
+        <Switch>
+          <Route exact path="/" render={props => <ResourceList {...props} resources={this.state.allResources} />} />
+          <Route path="/login" render={props => <LoginForm {...props} />} />
+          <Route path="/newresource" render={props => <CreateNewResource {...props} />} />
+          <Route path="/resources/:id" render={props => <ResourceDetails {...props} />} />
+        </Switch>
       </div>
     );
 
