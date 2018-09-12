@@ -11,11 +11,11 @@ function NavBar(props) {
         <Icon name="search" size="big" />
       </Menu.Item>
       <Menu.Item header>
-        <Menu.Header>
-          <h2>
-             Resource Booker 
-          </h2>
-        </Menu.Header>
+        <Link to="/">
+          <Menu.Header>
+            <h2>Resource Booker</h2>
+          </Menu.Header>
+        </Link>
       </Menu.Item>
       <Menu.Item icon position="right">
         <Link to="/login">

@@ -2,6 +2,7 @@
 import React from 'react';
 import { Container, Grid, Segment } from 'semantic-ui-react';
 import TimeTable from './TimeTable/TimeTable';
+import BookingBar from './TimeTable/BookingBar';
 
 class ResourceDetails extends React.Component {
   state = {
@@ -23,11 +24,11 @@ class ResourceDetails extends React.Component {
       <Container style={{ marginTop: '5em' }}>
         <Grid stretched divided columns="equal">
           <Grid.Row>
-            <Grid.Column>
+            <Grid.Column textAlign="center">
               <h2>{this.state.resource.identifier}</h2>
             </Grid.Column>
             <Grid.Column>
-              <Segment secondary>{this.state.resource.tags}</Segment>
+              <Segment secondary>{'Computers'}</Segment>
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>
@@ -41,6 +42,7 @@ class ResourceDetails extends React.Component {
             </Grid.Column>
           </Grid.Row>
         </Grid>
+        <BookingBar />
       </Container>
     );
   }

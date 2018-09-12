@@ -12,6 +12,10 @@
   display: inline-block;
 }
 
+.ui.basic.table {
+  border: none;
+}
+
 /* .timebar {
   border: 1px solid black;
 } */

@@ -61,6 +61,7 @@ class App extends React.Component {
           <Route path="/login" render={props => <LoginForm {...props} />} />
           <Route path="/newresource" render={props => <CreateNewResource {...props} />} />
           <Route path="/resources/:id" render={props => <ResourceDetails {...props} />} />
+          <Route render={props => <ResourceList {...props} resources={this.state.allResources}/>} />
         </Switch>
       </div>
     );
