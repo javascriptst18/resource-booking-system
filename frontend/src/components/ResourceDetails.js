@@ -1,6 +1,7 @@
 // WIP
 import React from 'react';
 import { Container, Grid, Segment } from 'semantic-ui-react';
+import TimeTable from './TimeTable/TimeTable';
 
 class ResourceDetails extends React.Component {
   state = {
@@ -30,7 +31,14 @@ class ResourceDetails extends React.Component {
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>
-            <Container fluid textAlign="center">{this.state.resource.description}</Container>
+            <Container fluid textAlign="center">
+              {this.state.resource.description}
+            </Container>
+          </Grid.Row>
+          <Grid.Row>
+            <Grid.Column>
+              <TimeTable />
+            </Grid.Column>
           </Grid.Row>
         </Grid>
       </Container>

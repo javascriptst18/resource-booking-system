@@ -4,6 +4,7 @@
   "author": "Denizhan Kilic, Jeremias Hillerberg",
   "license": "MIT",
   "dependencies": {
+    "date-fns": "^1.29.0",
     "jwt-decode": "^2.2.0",
     "moment": "^2.22.2",
     "react": "^16.4.2",
