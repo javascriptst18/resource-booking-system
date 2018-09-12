@@ -1,8 +1,8 @@
-// WIP
 import React from 'react';
 import { Container, Grid, Segment } from 'semantic-ui-react';
 import TimeTable from './TimeTable/TimeTable';
 import BookingBar from './TimeTable/BookingBar';
+import DeleteResource from './AdminTools/DeleteResource';
 
 class ResourceDetails extends React.Component {
   state = {
@@ -15,9 +15,7 @@ class ResourceDetails extends React.Component {
     this.fetchSingleResource().then(response => this.setState({ resource: response }));
   }
 
-  fetchSingleResource = () => {
-    return fetch(`/resources/${this.props.match.params.id}`).then(response => response.json());
-  };
+  fetchSingleResource = () => fetch(`/resources/${this.props.match.params.id}`).then(response => response.json());
 
   render() {
     return (
@@ -28,7 +26,7 @@ class ResourceDetails extends React.Component {
               <h2>{this.state.resource.identifier}</h2>
             </Grid.Column>
             <Grid.Column>
-              <Segment secondary>{'Computers'}</Segment>
+              <Segment secondary>Computers</Segment>
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>
@@ -40,6 +38,9 @@ class ResourceDetails extends React.Component {
             <Grid.Column>
               <TimeTable />
             </Grid.Column>
+          </Grid.Row>
+          <Grid.Row centered>
+            <DeleteResource resourceID={this.props.match.params.id} />
           </Grid.Row>
         </Grid>
         <BookingBar />
