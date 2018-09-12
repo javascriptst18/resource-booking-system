@@ -2,8 +2,6 @@ import React from 'react';
 import { Table, Label, Menu } from 'semantic-ui-react';
 import datefns from 'date-fns';
 
-
-
 const generateTimeSlotsArray = (startHour = 8, endHour = 17, intervalMinutes = 15) => {
   const arr = [];
   let time = new Date();

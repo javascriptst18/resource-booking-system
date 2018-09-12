@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import JwtAuthenticator from './JwtAuthenticator';
+import JwtAuthenticator from '../JwtAuthenticator';
 import styles from 'styled-components';
 
 const LoginCard = styles.div`

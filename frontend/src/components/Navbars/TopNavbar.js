@@ -4,7 +4,7 @@ import { Menu, Icon } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 
 // The Button component will render the login form
-function NavBar(props) {
+function TopNavbar(props) {
   return (
     <Menu borderless compact fixed="top">
       <Menu.Item icon position="left">
@@ -26,4 +26,4 @@ function NavBar(props) {
   );
 }
 
-export default NavBar;
+export default TopNavbar;

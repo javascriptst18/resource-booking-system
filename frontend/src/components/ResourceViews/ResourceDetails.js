@@ -1,8 +1,7 @@
 import React from 'react';
 import { Container, Grid, Segment } from 'semantic-ui-react';
-import TimeTable from './TimeTable/TimeTable';
-import BookingBar from './TimeTable/BookingBar';
-import DeleteResource from './AdminTools/DeleteResource';
+import TimeTable from './TimeTable';
+import AdminDeleteResource from '../UserControllers/AdminDeleteResource';
 
 class ResourceDetails extends React.Component {
   state = {
@@ -40,10 +39,9 @@ class ResourceDetails extends React.Component {
             </Grid.Column>
           </Grid.Row>
           <Grid.Row centered>
-            <DeleteResource resourceID={this.props.match.params.id} />
+            <AdminDeleteResource resourceID={this.props.match.params.id} />
           </Grid.Row>
         </Grid>
-        <BookingBar />
       </Container>
     );
   }

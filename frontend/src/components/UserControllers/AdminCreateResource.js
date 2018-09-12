@@ -1,7 +1,9 @@
 import React from 'react';
-import { Form, Container, Button, Divider, Header } from 'semantic-ui-react';
+import {
+  Form, Container, Button, Divider, Header,
+} from 'semantic-ui-react';
 
-class CreateNewResource extends React.Component {
+class AdminCreateResource extends React.Component {
   state = {
     identifier: '',
     category: '',
@@ -9,20 +11,22 @@ class CreateNewResource extends React.Component {
   };
 
   newResourceRequest = () => {
-    let reqbody = {
+    const reqbody = {
       identifier: this.state.identifier,
       category: this.state.category,
       description: this.state.description,
     };
-    
+
     fetch('/resources', {
       method: 'POST',
       headers: {
-        'Accept': 'application/json',
-        'Content-Type': 'application/json'
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
       },
-      body: JSON.stringify(reqbody)
-    }).then(response => response.json()).then(response => console.log(response));
+      body: JSON.stringify(reqbody),
+    })
+      .then(response => response.json())
+      .then(response => console.log(response));
   };
 
   handleChange = (e, { name, value }) => this.setState({ [name]: value });
@@ -39,7 +43,13 @@ class CreateNewResource extends React.Component {
           <i>Create a new resource</i>
         </Header>
         <Form size="big" onSubmit={this.handleSubmit}>
-          <Form.Input label="Name" name="identifier" value={identifier} placeholder="(ex. Meeting Room 5)" onChange={this.handleChange} />
+          <Form.Input
+            label="Name"
+            name="identifier"
+            value={identifier}
+            placeholder="(ex. Meeting Room 5)"
+            onChange={this.handleChange}
+          />
           <Form.Input
             label="Category"
             name="category"
@@ -68,7 +78,7 @@ class CreateNewResource extends React.Component {
   }
 }
 
-export default CreateNewResource;
+export default AdminCreateResource;
 
 /*
 

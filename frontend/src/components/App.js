@@ -1,11 +1,11 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import LoginForm from './LoginForm';
-import NavBar from './NavBar';
-import ResourceList from './ResourceList';
-import ResourceDetails from './ResourceDetails';
-import CreateNewResource from './AdminTools/CreateNewResource';
+import LoginForm from './UserViews/LoginForm';
+import NavBar from './Navbars/TopNavbar';
+import ResourceList from './ResourceViews/ResourceList';
+import ResourceDetails from './ResourceViews/ResourceDetails';
+import AdminCreateResource from './UserControllers/AdminCreateResource';
 // import mockDatabase from '../mockDatabase'; // Mock resources will be replaced by a call to the backend API
 
 class App extends React.Component {
@@ -22,7 +22,7 @@ class App extends React.Component {
     this.fetchBookings().then(res => this.setState({ bookings: res }));
   }
 
-  login = user => {
+  login = (user) => {
     this.setState({ user });
     localStorage.setItem('user', JSON.stringify(user));
   };
@@ -33,13 +33,9 @@ class App extends React.Component {
     });
   };
 
-  fetchBookings = () => {
-    return fetch('/bookings').then(response => response.json());
-  };
+  fetchBookings = () => fetch('/bookings').then(response => response.json());
 
-  fetchResources = () => {
-    return fetch('/resources').then(response => response.json());
-  };
+  fetchResources = () => fetch('/resources').then(response => response.json());
 
   fetchApi = () => {
     fetch('/api-help')
@@ -52,11 +48,17 @@ class App extends React.Component {
       <div>
         <NavBar />
         <Switch>
-          <Route exact path="/" render={props => <ResourceList {...props} resources={this.state.allResources} />} />
+          <Route
+            exact
+            path="/"
+            render={props => <ResourceList {...props} resources={this.state.allResources} />}
+          />
           <Route path="/login" render={props => <LoginForm {...props} />} />
-          <Route path="/newresource" render={props => <CreateNewResource {...props} />} />
+          <Route path="/newresource" render={props => <AdminCreateResource {...props} />} />
           <Route path="/resources/:id" render={props => <ResourceDetails {...props} />} />
-          <Route render={props => <ResourceList {...props} resources={this.state.allResources}/>} />
+          <Route
+            render={props => <ResourceList {...props} resources={this.state.allResources} />}
+          />
         </Switch>
       </div>
     );
