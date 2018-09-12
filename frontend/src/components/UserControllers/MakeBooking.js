@@ -6,7 +6,7 @@ class MakeBooking extends React.Component {
   state = {}
 
   render() {
-    return <Button>Confirm Booking</Button>;
+    return <Button color="green">Confirm Booking</Button>;
   }
 }
 
