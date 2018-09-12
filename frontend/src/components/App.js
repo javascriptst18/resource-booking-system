@@ -1,11 +1,14 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
+import { Container } from 'semantic-ui-react';
 
 import LoginForm from './UserViews/LoginForm';
-import NavBar from './Navbars/TopNavbar';
+import TopNavbar from './Navbars/TopNavbar';
 import ResourceList from './ResourceViews/ResourceList';
 import ResourceDetails from './ResourceViews/ResourceDetails';
 import AdminCreateResource from './UserControllers/AdminCreateResource';
+
+import './App.css';
 // import mockDatabase from '../mockDatabase'; // Mock resources will be replaced by a call to the backend API
 
 class App extends React.Component {
@@ -45,22 +48,24 @@ class App extends React.Component {
 
   render() {
     return (
-      <div>
-        <NavBar />
-        <Switch>
-          <Route
-            exact
-            path="/"
-            render={props => <ResourceList {...props} resources={this.state.allResources} />}
-          />
-          <Route path="/login" render={props => <LoginForm {...props} />} />
-          <Route path="/newresource" render={props => <AdminCreateResource {...props} />} />
-          <Route path="/resources/:id" render={props => <ResourceDetails {...props} />} />
-          <Route
-            render={props => <ResourceList {...props} resources={this.state.allResources} />}
-          />
-        </Switch>
-      </div>
+      <React.Fragment>
+        <TopNavbar />
+        <Container className="mainView" textAlign="center">
+          <Switch>
+            <Route
+              exact
+              path="/"
+              render={props => <ResourceList {...props} resources={this.state.allResources} />}
+            />
+            <Route path="/login" render={props => <LoginForm {...props} />} />
+            <Route path="/newresource" render={props => <AdminCreateResource {...props} />} />
+            <Route path="/resources/:id" render={props => <ResourceDetails {...props} />} />
+            <Route
+              render={props => <ResourceList {...props} resources={this.state.allResources} />}
+            />
+          </Switch>
+        </Container>
+      </React.Fragment>
     );
 
     // if (this.state.user) {

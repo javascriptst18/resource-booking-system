@@ -18,8 +18,7 @@ class ResourceDetails extends React.Component {
 
   render() {
     return (
-      <Container style={{ marginTop: '5em' }}>
-        <Grid stretched divided columns="equal">
+        <Grid divided columns="equal">
           <Grid.Row>
             <Grid.Column textAlign="center">
               <h2>{this.state.resource.identifier}</h2>
@@ -42,7 +41,6 @@ class ResourceDetails extends React.Component {
             <AdminDeleteResource resourceID={this.props.match.params.id} />
           </Grid.Row>
         </Grid>
-      </Container>
     );
   }
 }

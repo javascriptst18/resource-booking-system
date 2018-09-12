@@ -1,6 +1,8 @@
 // This component will render the booked and available timeslots inside a ResourceCard component
 import React from 'react';
-import { Container, Table, Label, Segment } from 'semantic-ui-react';
+import {
+  Container, Table, Label, Segment,
+} from 'semantic-ui-react';
 import './TimeBar.css';
 import datefns from 'date-fns';
 
@@ -9,7 +11,7 @@ const generateTimeSlotsArray = (startHour = 8, endHour = 17, intervalMinutes = 1
   let time = new Date();
   for (let i = startHour; i < endHour; i++) {
     time = datefns.setHours(time, i);
-    for (let ii = 0; ii < 60; ii = ii + intervalMinutes) {
+    for (let ii = 0; ii < 60; ii += intervalMinutes) {
       time = datefns.setMinutes(time, ii);
       time = datefns.setSeconds(time, 0);
       arr.push(time);
@@ -22,28 +24,26 @@ class TimeBar extends React.Component {
   state = {};
 
   render() {
-    const TableCells = generateTimeSlotsArray().map(e => {
-      let bColor = 'lightgreen';
+    const timeSlotsArray = generateTimeSlotsArray();
+    const unitSize = `${90 / timeSlotsArray.length}%`;
+
+    const timeUnits = timeSlotsArray.map((e) => {
+      const bColor = 'lightgreen';
       let disp = 'inline-block';
-      if (datefns.isBefore(e, Date.now())) {
-        disp = 'none';
-      }
 
       return (
         <div
           style={{
             backgroundColor: bColor,
             display: disp,
-            width: '1rem',
-            height: '1rem',
-            margin: '0',
-            padding: '0',
+            width: unitSize,
+            height: '1.5rem',
           }}
         />
       );
     });
 
-    return <div style={{ padding: '0', margin: '0' }}>{TableCells}</div>;
+    return <div style={{ padding: '0', margin: '0' }}>{timeUnits}</div>;
   }
 }
 

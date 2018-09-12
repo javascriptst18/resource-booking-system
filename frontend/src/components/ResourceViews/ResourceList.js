@@ -19,7 +19,7 @@ class ResourceList extends React.Component {
     const resources = this.props.resources.map(resource => <ResourceCard {...resource} key={Math.random()} />);
 
     return (
-      <Container fluid textAlign="center" style={{ marginTop: '4.5em' }}>
+      <React.Fragment>
         <DatePicker
           className="DPclass"
           selected={this.state.startDate}
@@ -31,7 +31,7 @@ class ResourceList extends React.Component {
           timeCaption="time"
         />
         <Card.Group>{resources}</Card.Group>
-      </Container>
+      </React.Fragment>
     );
   }
 }
