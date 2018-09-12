@@ -5,7 +5,7 @@ import LoginForm from './LoginForm';
 import NavBar from './NavBar';
 import ResourceList from './ResourceList';
 import ResourceDetails from './ResourceDetails';
-import CreateNewResource from './CreateNewResource';
+import CreateNewResource from './AdminTools/CreateNewResource';
 // import mockDatabase from '../mockDatabase'; // Mock resources will be replaced by a call to the backend API
 
 class App extends React.Component {
@@ -20,11 +20,6 @@ class App extends React.Component {
   componentDidMount() {
     this.fetchResources().then(res => this.setState({ allResources: res }));
     this.fetchBookings().then(res => this.setState({ bookings: res }));
-    // const user = localStorage.getItem('user');
-    // if (user) {
-    //   this.setState({ user: JSON.parse(user) });
-    // }
-    // The above code threw an error, commented it out temporarily for development
   }
 
   login = user => {
