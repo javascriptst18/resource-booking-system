@@ -1,7 +1,7 @@
 import React, {Component} from 'react';
 import './App.css';
-import JwtAuthenticator from './components/JwtAuthenticator';
-import withAuth from './components/JwtComponentWrapper';
+import JwtAuthenticator from './JwtAuthenticator';
+import JwtComponentWrapper from './JwtComponentWrapper';
 import styles from 'styled-components';
 
 const Auth = new JwtAuthenticator();
@@ -38,4 +38,4 @@ class App extends Component {
     }
 }
 
-export default withAuth(App);
+export default JwtComponentWrapper(App);
