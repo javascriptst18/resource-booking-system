@@ -6,7 +6,8 @@ import datefns from 'date-fns';
 import MakeBooking from '../UserControllers/MakeBooking';
 
 class BottomNavbar extends React.Component {
-  state = {};
+  state = {
+  };
 
   generateBookingRange = (arr) => {
     if (arr.length === 0) {
@@ -41,7 +42,7 @@ class BottomNavbar extends React.Component {
       <Menu vertical borderless fluid compact fixed="bottom">
         <Menu.Item style={{ paddingBottom: '0.2rem' }}>{bookingRange}</Menu.Item>
         <Menu.Item style={{ padding: '0.5rem' }}>
-          <MakeBooking />
+          <MakeBooking bookingSelection={this.props.bookingSelection} resourceID={this.props.resourceID} />
         </Menu.Item>
       </Menu>
     );

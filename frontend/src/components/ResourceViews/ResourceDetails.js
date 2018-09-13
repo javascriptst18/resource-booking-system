@@ -32,7 +32,10 @@ class ResourceDetails extends React.Component {
         </Grid.Row>
         <Grid.Row>
           <Grid.Column>
-            <TimeTable resID={this.state.resource.identifier} />
+            <TimeTable
+              resourceIdentifier={this.state.resource.identifier}
+              resourceID={this.props.match.params.id}
+            />
           </Grid.Column>
         </Grid.Row>
         <Grid.Row centered>

@@ -101,7 +101,11 @@ class TimeTable extends React.Component {
           </Table.Header>
           <Table.Body>{timeSlots}</Table.Body>
         </Table>
-        <BottomNavbar bookingSelection={this.state.selectedTimeSlots} resID={this.props.resID} />
+        <BottomNavbar
+          bookingSelection={this.state.selectedTimeSlots}
+          resourceIdentifier={this.props.resourceIdentifier}
+          resourceID={this.props.resourceID}
+        />
       </React.Fragment>
     );
   }
