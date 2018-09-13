@@ -9,7 +9,6 @@ class BottomNavbar extends React.Component {
   state = {};
 
   generateBookingRange = (arr) => {
-    console.log(arr);
     if (arr.length === 0) {
       return 'No dates selected';
     }

@@ -26,19 +26,25 @@ class TimeTable extends React.Component {
 
   selectTimeSlot = (event) => {
     console.log(event.target.attributes);
-    const arr = [...this.state.selectedTimeSlots];
+    let arr = [...this.state.selectedTimeSlots];
+    arr = arr.sort((a, b) => datefns.compareAsc(a, b));
     const targetDate = event.target.attributes[0].value;
-    if (this.state.selectedTimeSlots.includes(targetDate.toString())) {
-      const indexPosition = this.state.selectedTimeSlots.indexOf(targetDate.toString());
-      arr.splice(indexPosition, 1);
+    if (arr.includes(targetDate.toString())) {
+      const indexPosition = arr.indexOf(targetDate.toString());
+      if ([0, arr.length - 1].includes(indexPosition)) {
+        arr.splice(indexPosition, 1);
+      }
     } else if (event.target.attributes[2].value === 'background-color: lightgrey;') {
       console.log('Cannot select a date from the past.');
-    } else if (arr.length > 110) {
+    } else if (
+      arr.length > 0
+      && Math.abs(datefns.differenceInMinutes(targetDate, datefns.closestTo(targetDate, arr))) > 16
+    ) {
       console.log('Too far man');
     } else {
       arr.push(targetDate);
     }
-    this.setState({ selectedTimeSlots: arr }, () => console.log(this.state.selectedTimeSlots));
+    this.setState({ selectedTimeSlots: arr });
   };
 
   render() {
