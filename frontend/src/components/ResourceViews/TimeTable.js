@@ -25,6 +25,7 @@ class TimeTable extends React.Component {
   };
 
   selectTimeSlot = (event) => {
+    console.log(event.target.attributes);
     const arr = [...this.state.selectedTimeSlots];
     const targetDate = event.target.attributes[0].value;
     if (this.state.selectedTimeSlots.includes(targetDate.toString())) {

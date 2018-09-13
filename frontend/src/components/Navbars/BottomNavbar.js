@@ -15,7 +15,10 @@ class BottomNavbar extends React.Component {
     }
     const selectedTimesArray = arr.sort((a, b) => datefns.compareAsc(a, b));
     const startTime = datefns.format(selectedTimesArray[0], 'HH:mm');
-    const endTime = datefns.format(selectedTimesArray[arr.length - 1], 'HH:mm');
+    const endTime = datefns.format(
+      datefns.addMinutes(selectedTimesArray[arr.length - 1], 15),
+      'HH:mm',
+    );
     const bookingDate = datefns.format(selectedTimesArray[0], 'MMMM Do YYYY');
     const bookingDuration = datefns.distanceInWordsStrict(
       selectedTimesArray[0],
@@ -24,9 +27,8 @@ class BottomNavbar extends React.Component {
     return (
       <Segment piled style={{ padding: '0.2rem', marginBottom: '0' }}>
         <p style={{ fontWeight: '800', marginBottom: '0' }}>{this.props.resID}</p>
-        <p
-          style={{ marginTop: '0', marginBottom: '0' }}
-        >{`${startTime} to ${endTime} on ${bookingDate}`}
+        <p style={{ marginTop: '0', marginBottom: '0' }}>
+          {`${startTime} to ${endTime} on ${bookingDate}`}
         </p>
         <p style={{ fontWeight: '800', marginTop: '0' }}>{bookingDuration}</p>
       </Segment>
@@ -37,7 +39,7 @@ class BottomNavbar extends React.Component {
     const bookingRange = this.generateBookingRange(this.props.bookingSelection);
 
     return (
-      <Menu vertical size="medium" borderless fluid compact fixed="bottom">
+      <Menu vertical borderless fluid compact fixed="bottom">
         <Menu.Item style={{ paddingBottom: '0.2rem' }}>{bookingRange}</Menu.Item>
         <Menu.Item style={{ padding: '0.5rem' }}>
           <MakeBooking />

@@ -5,8 +5,12 @@ class MakeBooking extends React.Component {
 
   state = {}
 
+  handleClick = () => {
+    
+  }
+
   render() {
-    return <Button size="small" compact color="green">Confirm Booking</Button>;
+    return <Button onClick={this.handleClick} size="medium" compact color="green">Confirm Booking</Button>;
   }
 }
 
