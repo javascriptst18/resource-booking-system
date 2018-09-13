@@ -61,6 +61,7 @@ class App extends React.Component {
             <Route path="/login" render={props => <LoginForm {...props} />} />
             <Route path="/newresource" render={props => <AdminCreateResource {...props} />} />
             <Route path="/resources/:id" render={props => <ResourceDetails {...props} />} />
+            <Route path="/myBookings" render={props => <AdminCreateResource {...props} />} />
             <Route
               render={props => <ResourceList {...props} resources={this.state.allResources} />}
             />

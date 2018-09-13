@@ -1,10 +1,11 @@
 // This component generates the fixed navigation bar on the top of the page
 import React from 'react';
-import { Menu, Icon } from 'semantic-ui-react';
+import {
+  Menu, Icon, Dropdown, DropdownDivider,
+} from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import UserMenu from '../UserViews/UserMenu';
 
-// The Button component will render the login form
 function TopNavbar(props) {
   return (
     <Menu borderless compact fixed="top">
@@ -18,9 +19,14 @@ function TopNavbar(props) {
           </Menu.Header>
         </Link>
       </Menu.Item>
-      <Menu.Item icon position="right">
-        <UserMenu />
-      </Menu.Item>
+      <Dropdown item icon="user big" direction="left" simple>
+        <Dropdown.Menu>
+          <Dropdown.Item as={Link} to="/myBookings" text="My Bookings" />
+          <Dropdown.Item as={Link} to="/userProfile" text="User Profile" />
+          <DropdownDivider />
+          <Dropdown.Item as={Link} to="/logout" text="Log Out" />
+        </Dropdown.Menu>
+      </Dropdown>
     </Menu>
   );
 }
