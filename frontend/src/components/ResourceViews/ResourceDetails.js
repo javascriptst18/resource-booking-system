@@ -24,7 +24,7 @@ class ResourceDetails extends React.Component {
               <h2>{this.state.resource.identifier}</h2>
             </Grid.Column>
             <Grid.Column>
-              <Segment secondary>Computers</Segment>
+
             </Grid.Column>
           </Grid.Row>
           <Grid.Row>

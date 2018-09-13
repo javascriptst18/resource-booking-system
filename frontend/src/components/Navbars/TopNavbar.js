@@ -2,6 +2,7 @@
 import React from 'react';
 import { Menu, Icon } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
+import UserMenu from '../UserViews/UserMenu';
 
 // The Button component will render the login form
 function TopNavbar(props) {
@@ -18,9 +19,7 @@ function TopNavbar(props) {
         </Link>
       </Menu.Item>
       <Menu.Item icon position="right">
-        <Link to="/login">
-          <Icon color="black" name="user circle" size="big" />
-        </Link>
+        <UserMenu />
       </Menu.Item>
     </Menu>
   );

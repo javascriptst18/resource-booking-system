@@ -11,7 +11,11 @@ class DeleteResource extends React.Component {
     .then(response => console.log(response));
 
   render() {
-    return <Button as="a" href="/home" color="red" onClick={this.handleClick}>Delete Resource</Button>;
+    return (
+      <Button as="a" href="/home" color="red" onClick={this.handleClick}>
+        Delete Resource
+      </Button>
+    );
   }
 }
 

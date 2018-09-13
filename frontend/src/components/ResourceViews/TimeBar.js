@@ -27,9 +27,12 @@ class TimeBar extends React.Component {
     const timeSlotsArray = generateTimeSlotsArray();
     const unitSize = `${90 / timeSlotsArray.length}%`;
 
-    const timeUnits = timeSlotsArray.map((e) => {
-      const bColor = 'lightgreen';
+    const timeUnits = timeSlotsArray.map((e,i) => {
+      let bColor = 'lightgreen';
       let disp = 'inline-block';
+      if(datefns.isBefore(e, new Date())) {
+        let bColor = 'lightgrey';
+      }
 
       return (
         <div
