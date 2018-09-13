@@ -67,7 +67,6 @@ class App extends React.Component {
             />
           </Switch>
         </Container>
-        <BottomNavbar />
       </React.Fragment>
     );
 

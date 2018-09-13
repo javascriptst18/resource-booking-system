@@ -1,6 +1,7 @@
 import React from 'react';
 import { Table, Label, Menu } from 'semantic-ui-react';
 import datefns from 'date-fns';
+import BottomNavbar from '../Navbars/BottomNavbar';
 
 const generateTimeSlotsArray = (startHour = 8, endHour = 17, intervalMinutes = 15) => {
   const arr = [];
@@ -16,12 +17,28 @@ const generateTimeSlotsArray = (startHour = 8, endHour = 17, intervalMinutes = 1
   return arr;
 };
 
-class TimeTable extends React.Component {
-  state = {};
+const daysAvailable = [0, 1, 2, 3, 4];
 
-  selectTimeSlot = () => {
-    return null;
-  }
+class TimeTable extends React.Component {
+  state = {
+    selectedTimeSlots: [],
+  };
+
+  selectTimeSlot = (event) => {
+    const arr = [...this.state.selectedTimeSlots];
+    const targetDate = event.target.attributes[0].value;
+    if (this.state.selectedTimeSlots.includes(targetDate.toString())) {
+      const indexPosition = this.state.selectedTimeSlots.indexOf(targetDate.toString());
+      arr.splice(indexPosition, 1);
+    } else if (event.target.attributes[2].value === 'background-color: lightgrey;') {
+      console.log('Cannot select a date from the past.');
+    } else if (arr.length > 110) {
+      console.log('Too far man');
+    } else {
+      arr.push(targetDate);
+    }
+    this.setState({ selectedTimeSlots: arr }, () => console.log(this.state.selectedTimeSlots));
+  };
 
   render() {
     const timeSlotsArr = generateTimeSlotsArray();
@@ -33,37 +50,52 @@ class TimeTable extends React.Component {
     ));
 
     const timeSlots = timeSlotsArr.map((e) => {
-      const styleContainer = { backgroundColor: 'lightgreen' };
-      let styleContainer1 = {};
-
-      if (datefns.isBefore(e, Date.now())) {
-        styleContainer1 = { display: 'none' };
-      }
+      let styleContainer = { backgroundColor: 'lightgreen' };
 
       return (
-        <Table.Row key={e} style={styleContainer1}>
+        <Table.Row key={e}>
           <Table.Cell style={{ padding: '0.2rem' }}>
             <Label basic size="small">
               {datefns.format(e, 'HH:mm')}
             </Label>
           </Table.Cell>
-          {[0, 1, 2, 3, 4].map(e => (
-            <Table.Cell onClick={this.selectTimeSlot} key={e} style={styleContainer} />
-          ))}
+          {[0, 1, 2, 3, 4].map((ee) => {
+            const cellDate = datefns.addDays(e, ee);
+            styleContainer = { backgroundColor: 'lightgreen' };
+
+            if (datefns.isBefore(cellDate, Date.now())) {
+              styleContainer.backgroundColor = 'lightgrey';
+            }
+
+            if (this.state.selectedTimeSlots.includes(cellDate.toString())) {
+              styleContainer.backgroundColor = 'cornflowerblue';
+            }
+            return (
+              <Table.Cell
+                value={cellDate}
+                onClick={this.selectTimeSlot}
+                key={ee}
+                style={styleContainer}
+              />
+            );
+          })}
         </Table.Row>
       );
     });
 
     return (
-      <Table columns={6} celled textAlign="center" compact unstackable>
-        <Table.Header className="timeTableHeader">
-          <Table.Row verticalAlign="bottom">
-            <Table.HeaderCell>Time</Table.HeaderCell>
-            {daySlots}
-          </Table.Row>
-        </Table.Header>
-        <Table.Body>{timeSlots}</Table.Body>
-      </Table>
+      <React.Fragment>
+        <Table columns={6} celled textAlign="center" compact unstackable>
+          <Table.Header className="timeTableHeader">
+            <Table.Row verticalAlign="bottom">
+              <Table.HeaderCell>Time</Table.HeaderCell>
+              {daySlots}
+            </Table.Row>
+          </Table.Header>
+          <Table.Body>{timeSlots}</Table.Body>
+        </Table>
+        <BottomNavbar bookingSelection={this.state.selectedTimeSlots} resID={this.props.resID} />
+      </React.Fragment>
     );
   }
 }
