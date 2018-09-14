@@ -3,7 +3,7 @@ import { Button } from 'semantic-ui-react';
 import datefns from 'date-fns';
 
 class MakeBooking extends React.Component {
-  state = {};
+  state = {  };
 
   handleClick = () => {
     const arr = this.props.bookingSelection;
@@ -28,7 +28,7 @@ class MakeBooking extends React.Component {
       body: JSON.stringify(bookingConfirmationObject),
     })
       .then(response => response.json())
-      .then(response => console.log(response));
+      .then(response => console.log(response))
   };
 
   render() {

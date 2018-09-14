@@ -19,25 +19,24 @@ class ResourceDetails extends React.Component {
   render() {
     return (
       <Grid divided columns="equal">
-        <Grid.Row>
+        <Grid.Row style={{paddingBottom:"0"}}>
           <Grid.Column textAlign="center">
             <h2>{this.state.resource.identifier}</h2>
           </Grid.Column>
         </Grid.Row>
-        <Grid.Row>
-          <Container fluid textAlign="center">
+        <Grid.Row style={{paddingBottom:"0.2rem"}}>
+          <Container text fluid textAlign="center">
+          <Segment compact>
             {this.state.resource.description}
+            </Segment>
           </Container>
         </Grid.Row>
-        <Grid.Row>
-        <Grid.Column>
-            <TimeTable
-              resourceIdentifier={this.state.resource.identifier}
-              resourceID={this.props.match.params.id}
-            />
- </Grid.Column>
+        <Grid.Row style={{marginBottom:"0"}}>
+          <Grid.Column>
+            <TimeTable resourceIdentifier={this.state.resource.identifier} resourceID={this.props.match.params.id} />
+          </Grid.Column>
         </Grid.Row>
-        <Grid.Row centered style={{marginBottom:"2rem", paddingTop:"0"}}>
+        <Grid.Row centered style={{ marginBottom: '5rem' }}>
           <AdminDeleteResource resourceID={this.props.match.params.id} />
         </Grid.Row>
       </Grid>

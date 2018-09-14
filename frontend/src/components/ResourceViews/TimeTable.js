@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table, Label, Menu, Popup } from 'semantic-ui-react';
+import { Table, Label, Menu, Popup, Segment, Icon } from 'semantic-ui-react';
 import datefns from 'date-fns';
 import BottomNavbar from '../Navbars/BottomNavbar';
 
@@ -23,11 +23,18 @@ class TimeTable extends React.Component {
   state = {
     selectedTimeSlots: [],
     bookings: [],
-    startPage: 0,
+    startPage: [0, 1, 2, 3, 4],
+    updateMe: 0,
   };
 
   componentDidMount() {
     this.fetchBookings().then(res => this.setState({ bookings: res }, () => console.log(this.state.bookings)));
+  }
+
+  updateStartPage = (direction) => {
+    let newStartPage = [...this.state.startPage];
+    newStartPage = newStartPage.map(e => e + direction);
+    this.setState({ startPage: newStartPage });
   }
 
   fetchBookings = () => fetch('/bookings').then(response => response.json());
@@ -44,9 +51,8 @@ class TimeTable extends React.Component {
         by = booking.name;
       }
     });
-    return { occupied, by }
+    return { occupied, by };
   };
-
 
   selectTimeSlot = event => {
     console.log(event.target.attributes);
@@ -73,8 +79,8 @@ class TimeTable extends React.Component {
   render() {
     const timeSlotsArr = generateTimeSlotsArray();
 
-    const daySlots = [0, 1, 2, 3, 4].map(e => (
-      <Table.HeaderCell key={e} verticalAlign="middle" style={{fontSize:"0.85rem", padding:"0"}}>
+    const daySlots = this.state.startPage.map(e => (
+      <Table.HeaderCell key={e} verticalAlign="middle" style={{ fontSize: '0.85rem', padding: '0' }}>
         <span>{datefns.format(datefns.addDays(new Date(), e), 'ddd')}</span>
         <p>{datefns.format(datefns.addDays(new Date(), e), 'MM/DD')}</p>
       </Table.HeaderCell>
@@ -85,14 +91,26 @@ class TimeTable extends React.Component {
 
       return (
         <Table.Row key={e}>
-          <Table.HeaderCell style={{ fontSize:"0.85rem",padding: '0.5rem', backgroundColor: "rgb(249, 250, 251)" }}>
+          <Table.HeaderCell style={{ fontSize: '0.85rem', padding: '0.5rem', backgroundColor: 'rgb(249, 250, 251)' }}>
             {/* <Label basic size="small">
               {datefns.format(e, 'HH:mm')}
-            </Label> */}{datefns.format(e, 'HH:mm')}
+            </Label> */}
+            {datefns.format(e, 'HH:mm')}
           </Table.HeaderCell>
-          {[0, 1, 2, 3, 4].map(ee => {
+          {this.state.startPage.map(ee => {
             const cellDate = datefns.addDays(e, ee);
             styleContainer = { backgroundColor: 'lightgreen' };
+
+            if (datefns.isSaturday(cellDate) || datefns.isSunday(cellDate)) {
+              styleContainer.backgroundColor = 'grey';
+              return (
+                <Popup
+                  trigger={<Table.Cell value={cellDate} onClick={this.selectTimeSlot} key={ee} style={styleContainer} />}
+                  content={`This timeslot has not been made available.`}
+                  basic
+                />
+              );
+            }
 
             if (this.isBooked(cellDate).occupied) {
               styleContainer.backgroundColor = 'lightsalmon';
@@ -127,6 +145,7 @@ class TimeTable extends React.Component {
 
     return (
       <React.Fragment>
+
         <Table columns={6} celled textAlign="center" compact unstackable>
           <Table.Header className="timeTableHeader">
             <Table.Row verticalAlign="bottom">
@@ -140,6 +159,7 @@ class TimeTable extends React.Component {
           bookingSelection={this.state.selectedTimeSlots}
           resourceIdentifier={this.props.resourceIdentifier}
           resourceID={this.props.resourceID}
+          updateStartPage={this.updateStartPage}
         />
       </React.Fragment>
     );
