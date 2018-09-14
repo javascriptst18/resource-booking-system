@@ -10,7 +10,6 @@ import AdminCreateResource from './UserControllers/AdminCreateResource';
 import BottomNavbar from './Navbars/BottomNavbar';
 
 import './App.css';
-// import mockDatabase from '../mockDatabase'; // Mock resources will be replaced by a call to the backend API
 
 class App extends React.Component {
   state = {

@@ -66,6 +66,8 @@ class TimeTable extends React.Component {
       }
     } else if (event.target.attributes[2].value === 'background-color: lightgrey;') {
       console.log('Cannot select a date from the past. Let it go.');
+    } else if (event.target.attributes[2].value === 'background-color: grey;') {
+      console.log('This time slot has not been made available. Probably a weekend or something.');
     } else if (arr.length > 0 && Math.abs(datefns.differenceInMinutes(targetDate, datefns.closestTo(targetDate, arr))) > 16) {
       console.log('Cannot select non-adjacent timeslots.');
     } else if (event.target.attributes[2].value === 'background-color: lightsalmon;') {
@@ -101,6 +103,17 @@ class TimeTable extends React.Component {
             const cellDate = datefns.addDays(e, ee);
             styleContainer = { backgroundColor: 'lightgreen' };
             
+            if (datefns.isSaturday(cellDate) || datefns.isSunday(cellDate)) {
+              styleContainer.backgroundColor = 'grey';
+              return (
+                <Popup
+                  trigger={<Table.Cell value={cellDate} onClick={this.selectTimeSlot} key={ee} style={styleContainer} />}
+                  content={`This timeslot has not been made available.`}
+                  basic
+                />
+              );
+            }
+
             if (this.isBooked(cellDate).occupied) {
               styleContainer.backgroundColor = 'lightsalmon';
               return (
@@ -112,16 +125,6 @@ class TimeTable extends React.Component {
               );
             }
 
-            if (datefns.isSaturday(cellDate) || datefns.isSunday(cellDate)) {
-              styleContainer.backgroundColor = 'grey';
-              return (
-                <Popup
-                  trigger={<Table.Cell value={cellDate} onClick={this.selectTimeSlot} key={ee} style={styleContainer} />}
-                  content={`This timeslot has not been made available.`}
-                  basic
-                />
-              );
-            }
 
             if (datefns.isBefore(cellDate, Date.now())) {
               styleContainer.backgroundColor = 'lightgrey';
