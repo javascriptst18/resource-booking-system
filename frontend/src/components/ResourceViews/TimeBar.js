@@ -20,6 +20,11 @@ const generateTimeSlotsArray = (startHour = 8, endHour = 17, intervalMinutes = 1
   return arr;
 };
 
+const generateTimeSlotLabels = () => {
+
+  
+};
+
 class TimeBar extends React.Component {
   state = {};
 

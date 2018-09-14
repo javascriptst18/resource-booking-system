@@ -23,7 +23,6 @@ class ResourceDetails extends React.Component {
           <Grid.Column textAlign="center">
             <h2>{this.state.resource.identifier}</h2>
           </Grid.Column>
-          <Grid.Column />
         </Grid.Row>
         <Grid.Row>
           <Container fluid textAlign="center">
@@ -31,14 +30,14 @@ class ResourceDetails extends React.Component {
           </Container>
         </Grid.Row>
         <Grid.Row>
-          <Grid.Column>
+        <Grid.Column>
             <TimeTable
               resourceIdentifier={this.state.resource.identifier}
               resourceID={this.props.match.params.id}
             />
-          </Grid.Column>
+ </Grid.Column>
         </Grid.Row>
-        <Grid.Row centered>
+        <Grid.Row centered style={{marginBottom:"2rem", paddingTop:"0"}}>
           <AdminDeleteResource resourceID={this.props.match.params.id} />
         </Grid.Row>
       </Grid>

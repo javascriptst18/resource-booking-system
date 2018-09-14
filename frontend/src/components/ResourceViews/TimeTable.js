@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table, Label, Menu } from 'semantic-ui-react';
+import { Table, Label, Menu, Popup } from 'semantic-ui-react';
 import datefns from 'date-fns';
 import BottomNavbar from '../Navbars/BottomNavbar';
 
@@ -22,9 +22,33 @@ const daysAvailable = [0, 1, 2, 3, 4];
 class TimeTable extends React.Component {
   state = {
     selectedTimeSlots: [],
+    bookings: [],
+    startPage: 0,
   };
 
-  selectTimeSlot = (event) => {
+  componentDidMount() {
+    this.fetchBookings().then(res => this.setState({ bookings: res }, () => console.log(this.state.bookings)));
+  }
+
+  fetchBookings = () => fetch('/bookings').then(response => response.json());
+
+  isBooked = dateValue => {
+    const bookingsArr = [...this.state.bookings];
+    let occupied = false;
+    let by = '';
+    bookingsArr.forEach(booking => {
+      let st = new Date(booking.startTime);
+      let et = datefns.subMinutes(new Date(booking.endTime), 1);
+      if (datefns.isWithinRange(dateValue, st, et)) {
+        occupied = true;
+        by = booking.name;
+      }
+    });
+    return { occupied, by }
+  };
+
+
+  selectTimeSlot = event => {
     console.log(event.target.attributes);
     let arr = [...this.state.selectedTimeSlots];
     arr = arr.sort((a, b) => datefns.compareAsc(a, b));
@@ -35,12 +59,11 @@ class TimeTable extends React.Component {
         arr.splice(indexPosition, 1);
       }
     } else if (event.target.attributes[2].value === 'background-color: lightgrey;') {
-      console.log('Cannot select a date from the past.');
-    } else if (
-      arr.length > 0
-      && Math.abs(datefns.differenceInMinutes(targetDate, datefns.closestTo(targetDate, arr))) > 16
-    ) {
-      console.log('Too far man');
+      console.log('Cannot select a date from the past. Let it go.');
+    } else if (arr.length > 0 && Math.abs(datefns.differenceInMinutes(targetDate, datefns.closestTo(targetDate, arr))) > 16) {
+      console.log('Cannot select non-adjacent timeslots.');
+    } else if (event.target.attributes[2].value === 'background-color: lightsalmon;') {
+      console.log('Cannot select booked timeslots.');
     } else {
       arr.push(targetDate);
     }
@@ -51,40 +74,52 @@ class TimeTable extends React.Component {
     const timeSlotsArr = generateTimeSlotsArray();
 
     const daySlots = [0, 1, 2, 3, 4].map(e => (
-      <Table.HeaderCell key={e}>
-        <p>{datefns.format(datefns.addDays(new Date(), e), 'ddd MM/DD')}</p>
+      <Table.HeaderCell key={e} verticalAlign="middle" style={{fontSize:"0.85rem", padding:"0"}}>
+        <span>{datefns.format(datefns.addDays(new Date(), e), 'ddd')}</span>
+        <p>{datefns.format(datefns.addDays(new Date(), e), 'MM/DD')}</p>
       </Table.HeaderCell>
     ));
 
-    const timeSlots = timeSlotsArr.map((e) => {
+    const timeSlots = timeSlotsArr.map(e => {
       let styleContainer = { backgroundColor: 'lightgreen' };
 
       return (
         <Table.Row key={e}>
-          <Table.Cell style={{ padding: '0.2rem' }}>
-            <Label basic size="small">
+          <Table.HeaderCell style={{ fontSize:"0.85rem",padding: '0.5rem', backgroundColor: "rgb(249, 250, 251)" }}>
+            {/* <Label basic size="small">
               {datefns.format(e, 'HH:mm')}
-            </Label>
-          </Table.Cell>
-          {[0, 1, 2, 3, 4].map((ee) => {
+            </Label> */}{datefns.format(e, 'HH:mm')}
+          </Table.HeaderCell>
+          {[0, 1, 2, 3, 4].map(ee => {
             const cellDate = datefns.addDays(e, ee);
             styleContainer = { backgroundColor: 'lightgreen' };
 
+            if (this.isBooked(cellDate).occupied) {
+              styleContainer.backgroundColor = 'lightsalmon';
+              return (
+                <Popup
+                  trigger={<Table.Cell value={cellDate} onClick={this.selectTimeSlot} key={ee} style={styleContainer} />}
+                  content={`Booked by ${this.isBooked(cellDate).by}`}
+                  basic
+                />
+              );
+            }
+
             if (datefns.isBefore(cellDate, Date.now())) {
               styleContainer.backgroundColor = 'lightgrey';
+              return (
+                <Popup
+                  trigger={<Table.Cell value={cellDate} onClick={this.selectTimeSlot} key={ee} style={styleContainer} />}
+                  content={`Cannot book past timeslots. Let it go.`}
+                  basic
+                />
+              );
             }
 
             if (this.state.selectedTimeSlots.includes(cellDate.toString())) {
               styleContainer.backgroundColor = 'cornflowerblue';
             }
-            return (
-              <Table.Cell
-                value={cellDate}
-                onClick={this.selectTimeSlot}
-                key={ee}
-                style={styleContainer}
-              />
-            );
+            return <Table.Cell value={cellDate} onClick={this.selectTimeSlot} key={ee} style={styleContainer} />;
           })}
         </Table.Row>
       );
@@ -95,7 +130,7 @@ class TimeTable extends React.Component {
         <Table columns={6} celled textAlign="center" compact unstackable>
           <Table.Header className="timeTableHeader">
             <Table.Row verticalAlign="bottom">
-              <Table.HeaderCell>Time</Table.HeaderCell>
+              <Table.HeaderCell verticalAlign="middle">Time</Table.HeaderCell>
               {daySlots}
             </Table.Row>
           </Table.Header>

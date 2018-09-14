@@ -11,13 +11,24 @@ class MakeBooking extends React.Component {
     let endTime = new Date(arr[arr.length - 1]);
     endTime = datefns.addMinutes(endTime, 15);
     const resourceID = this.props.resourceID;
+    const username = 'Richy Ownington III'; //Demo placeholder
 
     const bookingConfirmationObject = {
+      username,
       resourceID,
       startTime,
       endTime,
     };
-    console.log(bookingConfirmationObject);
+    fetch('/bookings/', {
+      method: 'POST',
+      headers: {
+        Accept: 'application/json',
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(bookingConfirmationObject),
+    })
+      .then(response => response.json())
+      .then(response => console.log(response));
   };
 
   render() {

@@ -12,7 +12,7 @@ class DeleteResource extends React.Component {
 
   render() {
     return (
-      <Button as="a" href="/home" color="red" onClick={this.handleClick}>
+      <Button as="a" href="/home" color="red" onClick={this.handleClick} compact>
         Delete Resource
       </Button>
     );

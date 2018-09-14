@@ -23,7 +23,7 @@ class App extends React.Component {
 
   componentDidMount() {
     this.fetchResources().then(res => this.setState({ allResources: res }));
-    this.fetchBookings().then(res => this.setState({ bookings: res }));
+    this.fetchBookings().then(res => this.setState({ bookings: res }, () => console.log(this.state.bookings)));
   }
 
   login = (user) => {

@@ -1,6 +1,6 @@
 // This component generates ResourceCards that populate the Card Group
 import React from 'react';
-import { Card } from 'semantic-ui-react';
+import { Card, Item, ItemImage } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
 import TimeBar from './TimeBar';
 
@@ -15,9 +15,9 @@ function ResourceCard(props) {
           <Card.Meta>{props.category}</Card.Meta>
           <Card.Description>{props.description}</Card.Description>
         </Card.Content>
-        <Card.Content extra style={{ padding: '0 0 0.7rem 0'}}>
+        {/* <Card.Content extra style={{ padding: '0 0 0.7rem 0'}}>
           <TimeBar bookings={props.bookings} />
-        </Card.Content>
+        </Card.Content> */}
       </Card>
   );
 }

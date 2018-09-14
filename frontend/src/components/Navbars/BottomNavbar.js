@@ -39,7 +39,7 @@ class BottomNavbar extends React.Component {
     const bookingRange = this.generateBookingRange(this.props.bookingSelection);
 
     return (
-      <Menu vertical borderless fluid compact fixed="bottom">
+      <Menu vertical borderless fluid compact fixed="bottom" style={{backgroundColor:"snow"}}>
         <Menu.Item style={{ paddingBottom: '0.2rem' }}>{bookingRange}</Menu.Item>
         <Menu.Item style={{ padding: '0.5rem' }}>
           <MakeBooking bookingSelection={this.props.bookingSelection} resourceID={this.props.resourceID} />
