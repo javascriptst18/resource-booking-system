@@ -100,6 +100,17 @@ class TimeTable extends React.Component {
           {this.state.startPage.map(ee => {
             const cellDate = datefns.addDays(e, ee);
             styleContainer = { backgroundColor: 'lightgreen' };
+            
+            if (this.isBooked(cellDate).occupied) {
+              styleContainer.backgroundColor = 'lightsalmon';
+              return (
+                <Popup
+                  trigger={<Table.Cell value={cellDate} onClick={this.selectTimeSlot} key={ee} style={styleContainer} />}
+                  content={`Booked by ${this.isBooked(cellDate).by}`}
+                  basic
+                />
+              );
+            }
 
             if (datefns.isSaturday(cellDate) || datefns.isSunday(cellDate)) {
               styleContainer.backgroundColor = 'grey';
@@ -107,17 +118,6 @@ class TimeTable extends React.Component {
                 <Popup
                   trigger={<Table.Cell value={cellDate} onClick={this.selectTimeSlot} key={ee} style={styleContainer} />}
                   content={`This timeslot has not been made available.`}
-                  basic
-                />
-              );
-            }
-
-            if (this.isBooked(cellDate).occupied) {
-              styleContainer.backgroundColor = 'lightsalmon';
-              return (
-                <Popup
-                  trigger={<Table.Cell value={cellDate} onClick={this.selectTimeSlot} key={ee} style={styleContainer} />}
-                  content={`Booked by ${this.isBooked(cellDate).by}`}
                   basic
                 />
               );
@@ -145,7 +145,6 @@ class TimeTable extends React.Component {
 
     return (
       <React.Fragment>
-
         <Table columns={6} celled textAlign="center" compact unstackable>
           <Table.Header className="timeTableHeader">
             <Table.Row verticalAlign="bottom">
