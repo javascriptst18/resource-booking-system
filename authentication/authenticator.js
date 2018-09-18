@@ -3,7 +3,7 @@ const jwtVerification = require('./jwtVerification');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 
-const User = require('../user/userModel');
+const { User } = require('../models');
 const authenticationRouter = express.Router();
 const bodyParser = require('body-parser');
 

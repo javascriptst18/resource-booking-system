@@ -2,8 +2,8 @@ const express = require('express');
 
 const resourceController = express();
 const bodyParser = require('body-parser');
-const jwtVerification = require('../authentication/jwtVerification');
-const Resource = require('./resourceModel');
+const jwtVerification = require('./authentication/jwtVerification');
+const { Resource } = require('./models');
 
 resourceController.use(bodyParser.urlencoded({ extended: true }));
 resourceController.use(bodyParser.json());

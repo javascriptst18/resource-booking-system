@@ -24,4 +24,4 @@ mongoose.connect(process.env.DB_CONN, { useNewUrlParser: true }, (error) => { if
 // This creates an error on non-wifi devices
 
 app.listen(process.env.PORT);
-console.log('Development server successfully started. App running on port ' + process.env.PORT);
+console.log(`Server listening on port ${process.env.PORT}`);

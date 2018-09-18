@@ -2,9 +2,9 @@ const express = require('express');
 const mainRouter = express.Router();
 
 const authenticator = require('./authentication/authenticator');
-const bookingController = require('./booking/bookingController')
-const resourceController = require('./resource/resourceController')
-const userController = require('./user/userController');
+const bookingController = require('./bookingController')
+const resourceController = require('./resourceController')
+const userController = require('./userController');
 
 mainRouter.use('/auth', authenticator);
 mainRouter.use('/bookings', bookingController);
