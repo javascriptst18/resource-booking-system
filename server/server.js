@@ -13,7 +13,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cors()); // Instructs app to use cors for cross-origin requests to mlab database
 app.use(express.json()); // Instructs app to use express.json() to handle JSON
-app.use(express.static('frontend/build')); // Instructs app to use express.static (./public) at initial GET requests and serve this file to user
+app.use(express.static('../client/build')); // Instructs app to use express.static (./public) at initial GET requests and serve this file to user
 app.use(express.urlencoded({ extended: true })); // Instructs app to use express.urlencoded to handle form-data from user
 app.use(morgan('dev'));
 
