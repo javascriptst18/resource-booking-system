@@ -18,7 +18,7 @@ app.use(express.urlencoded({ extended: true })); // Instructs app to use express
 app.use(morgan('dev'));
 
 mongoose.Promise = global.Promise;
-mongoose.connect(process.env.DB_CONN, { useNewUrlParser: true }, (error) => { if(error) throw (error); console.log("Connection to [ds139722.mlab.com] successfully established")});
+mongoose.connect(process.env.DB_CONN, { useNewUrlParser: true }, (error) => { if (error) throw (error); console.log('Connection to [ds139722.mlab.com] successfully established'); });
 
 // console.log(os.networkInterfaces().WiFi[3]);
 // This creates an error on non-wifi devices

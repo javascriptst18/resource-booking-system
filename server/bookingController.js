@@ -8,27 +8,27 @@ const jwtVerification = require('./authentication/jwtVerification');
 bookingController.use(bodyParser.urlencoded({ extended: true }));
 bookingController.use(bodyParser.json());
 
-bookingController.get('/', (request, response) => {
-  Booking.find({}, function(error, bookings) {
-    if (error) return response.status(500).send('HTTP 500 INTERNAL SERVER ERROR');
-    response.status(200).send(bookings);
-  });
-});
-
-bookingController.post('/', function(request, response) {
-  Booking.create(
-    {
-      name: request.body.username,
-      resourceID: request.body.resourceID,
-      startTime: request.body.startTime,
-      endTime: request.body.endTime,
-    },
-    function(error, booking) {
+bookingController.route('/')
+  .get((request, response) => {
+    Booking.find({}, (error, bookings) => {
       if (error) return response.status(500).send('HTTP 500 INTERNAL SERVER ERROR');
-      response.status(200).send(booking);
-    },
-  );
-});
+      response.status(200).send(bookings);
+    });
+  })
+  .post((request, response) => {
+    Booking.create(
+      {
+        name: request.body.username,
+        resourceID: request.body.resourceID,
+        startTime: request.body.startTime,
+        endTime: request.body.endTime,
+      },
+      (error, booking) => {
+        if (error) return response.status(500).send('HTTP 500 INTERNAL SERVER ERROR');
+        return response.status(200).send(booking);
+      },
+    );
+  })
 
 bookingController.delete('/:id', (request, response) => {
   Booking.findByIdAndRemove(request.params.id, (error, resource) => {
