@@ -1,6 +1,6 @@
 {
-  "name": "resource-booking-system",
-  "version": "0.0.1",
+  "name": "resource-booking-system-server",
+  "version": "0.1.0",
   "description": "",
   "main": "server.js",
   "scripts": {
@@ -12,7 +12,7 @@
     "url": "git+https://github.com/javascriptst18/resource-booking-system.git"
   },
   "keywords": [],
-  "author": "",
+  "author": "Denizhan Kilic, Jeremias Hillerberg",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/javascriptst18/resource-booking-system/issues"
