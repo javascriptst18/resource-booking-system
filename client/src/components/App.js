@@ -7,7 +7,6 @@ import TopNavbar from './Navbars/TopNavbar';
 import ResourceList from './ResourceViews/ResourceList';
 import ResourceDetails from './ResourceViews/ResourceDetails';
 import AdminCreateResource from './UserControllers/AdminCreateResource';
-import BottomNavbar from './Navbars/BottomNavbar';
 
 import './App.css';
 

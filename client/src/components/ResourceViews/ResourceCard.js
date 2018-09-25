@@ -1,8 +1,6 @@
 // This component generates ResourceCards that populate the Card Group
 import React from 'react';
-import { Card, Item, ItemImage, Label } from 'semantic-ui-react';
-import { Link } from 'react-router-dom';
-import TimeBar from './TimeBar';
+import { Card, Label } from 'semantic-ui-react';
 import datefns from 'date-fns';
 
 function ResourceCard(props) {

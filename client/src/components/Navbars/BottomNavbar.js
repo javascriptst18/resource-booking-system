@@ -1,5 +1,5 @@
 import React from 'react';
-import { Menu, Button, Container, Segment } from 'semantic-ui-react';
+import { Menu, Segment } from 'semantic-ui-react';
 import datefns from 'date-fns';
 import MakeBooking from '../UserControllers/MakeBooking';
 import Paginator from '../UserControllers/Paginator';

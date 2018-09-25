@@ -1,5 +1,5 @@
 import React from 'react';
-import { Menu, Icon, Dropdown } from 'semantic-ui-react';
+import { Dropdown } from 'semantic-ui-react';
 
 class UserMenu extends React.Component {
   state = {};

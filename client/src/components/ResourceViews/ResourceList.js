@@ -1,6 +1,6 @@
 // This component renders a Card Group with ResourceCards
 import React from 'react';
-import { Card, Container } from 'semantic-ui-react';
+import { Card } from 'semantic-ui-react';
 import DatePicker from 'react-datepicker';
 import moment from 'moment'; // Required for react-datepicker
 

@@ -1,8 +1,5 @@
 // This component will render the booked and available timeslots inside a ResourceCard component
 import React from 'react';
-import {
-  Container, Table, Label, Segment,
-} from 'semantic-ui-react';
 import './TimeBar.css';
 import datefns from 'date-fns';
 

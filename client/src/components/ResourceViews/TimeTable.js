@@ -1,5 +1,5 @@
 import React from 'react';
-import { Table, Label, Menu, Popup, Segment, Icon } from 'semantic-ui-react';
+import { Table, Popup } from 'semantic-ui-react';
 import datefns from 'date-fns';
 import BottomNavbar from '../Navbars/BottomNavbar';
 
@@ -35,17 +35,17 @@ class TimeTable extends React.Component {
     let newStartPage = [...this.state.startPage];
     newStartPage = newStartPage.map(e => e + direction);
     this.setState({ startPage: newStartPage });
-  }
+  };
 
   fetchBookings = () => fetch('/bookings').then(response => response.json());
 
-  isBooked = dateValue => {
+  isBooked = (dateValue) => {
     const bookingsArr = [...this.state.bookings];
     let occupied = false;
     let by = '';
-    bookingsArr.forEach(booking => {
-      let st = new Date(booking.startTime);
-      let et = datefns.subMinutes(new Date(booking.endTime), 1);
+    bookingsArr.forEach((booking) => {
+      const st = new Date(booking.startTime);
+      const et = datefns.subMinutes(new Date(booking.endTime), 1);
       if (datefns.isWithinRange(dateValue, st, et)) {
         occupied = true;
         by = booking.name;
@@ -54,7 +54,7 @@ class TimeTable extends React.Component {
     return { occupied, by };
   };
 
-  selectTimeSlot = event => {
+  selectTimeSlot = (event) => {
     console.log(event.target.attributes);
     let arr = [...this.state.selectedTimeSlots];
     arr = arr.sort((a, b) => datefns.compareAsc(a, b));
@@ -88,7 +88,7 @@ class TimeTable extends React.Component {
       </Table.HeaderCell>
     ));
 
-    const timeSlots = timeSlotsArr.map(e => {
+    const timeSlots = timeSlotsArr.map((e) => {
       let styleContainer = { backgroundColor: 'lightgreen' };
 
       return (
@@ -99,16 +99,16 @@ class TimeTable extends React.Component {
             </Label> */}
             {datefns.format(e, 'HH:mm')}
           </Table.HeaderCell>
-          {this.state.startPage.map(ee => {
+          {this.state.startPage.map((ee) => {
             const cellDate = datefns.addDays(e, ee);
             styleContainer = { backgroundColor: 'lightgreen' };
-            
+
             if (datefns.isSaturday(cellDate) || datefns.isSunday(cellDate)) {
               styleContainer.backgroundColor = 'grey';
               return (
                 <Popup
                   trigger={<Table.Cell value={cellDate} onClick={this.selectTimeSlot} key={ee} style={styleContainer} />}
-                  content={`This timeslot has not been made available.`}
+                  content="This timeslot has not been made available."
                   basic
                 />
               );
@@ -125,13 +125,12 @@ class TimeTable extends React.Component {
               );
             }
 
-
             if (datefns.isBefore(cellDate, Date.now())) {
               styleContainer.backgroundColor = 'lightgrey';
               return (
                 <Popup
                   trigger={<Table.Cell value={cellDate} onClick={this.selectTimeSlot} key={ee} style={styleContainer} />}
-                  content={`Cannot book past timeslots. Let it go.`}
+                  content="Cannot book past timeslots. Let it go."
                   basic
                 />
               );

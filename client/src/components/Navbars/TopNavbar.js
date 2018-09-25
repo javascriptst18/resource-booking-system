@@ -2,7 +2,6 @@
 import React from 'react';
 import { Menu, Icon, Dropdown, DropdownDivider } from 'semantic-ui-react';
 import { Link } from 'react-router-dom';
-import UserMenu from '../UserViews/UserMenu';
 
 function TopNavbar(props) {
   return (
