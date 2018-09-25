@@ -28,7 +28,7 @@ bookingController.route('/')
         return response.status(200).send(booking);
       },
     );
-  })
+  });
 
 bookingController.delete('/:id', (request, response) => {
   Booking.findByIdAndRemove(request.params.id, (error, resource) => {
