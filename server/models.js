@@ -8,17 +8,6 @@ const UserModel = mongoose.model(
   new Schema({
     name: String,
     email: String,
-    username: {
-      type: String,
-      index: true,
-      unique: true,
-      dropDups: true,
-      required: true,
-    },
-    passwordHash: { //salted and hashed using bcrypt
-      type: String,
-      required: true,
-    },
   }).plugin(passportLocalMongoose),
 );
 
