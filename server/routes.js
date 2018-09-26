@@ -1,20 +1,20 @@
 const express = require('express');
-const { User, Resource, Booking } = require('./models');
+const { UserModel, ResourceModel, BookingModel } = require('./models');
 const jwtVerification = require('./authentication/jwtVerification');
 
-const apiRoutes = express.Router();
+const routes = express.Router();
 
 // User related API routes
-apiRoutes
+routes
   .route('/users/')
   .get((request, response) => {
-    User.find({}, (error, users) => {
+    UserModel.find({}, (error, users) => {
       if (error) return response.status(500).send('HTTP 500 INTERNAL SERVER ERROR');
       response.status(200).send(users);
     });
   })
   .post((request, response) => {
-    const newUser = new User(request.body);
+    const newUser = new UserModel(request.body);
     newUser.save((error, user) => {
       if (error) {
         response.status(500).send('HTTP 500 INTERNAL SERVER ERROR');
@@ -23,41 +23,41 @@ apiRoutes
       }
     });
   });
-  
-apiRoutes
+
+routes
   .route('/users/:id')
   .get((request, response) => {
-    User.findById(request.params.id, (error, user) => {
+    UserModel.findById(request.params.id, (error, user) => {
       if (error) return response.status(500).send('HTTP 500 INTERNAL SERVER ERROR');
       if (!user) return response.status(404).send('HTTP 404 NOT FOUND');
       response.status(200).send(user);
     });
   })
   .delete(jwtVerification, (request, response) => {
-    User.findByIdAndRemove(request.params.id, (error, user) => {
+    UserModel.findByIdAndRemove(request.params.id, (error, user) => {
       if (error) return response.status(500).send('HTTP 500 INTERNAL SERVER ERROR');
       response.status(200).send(`User: ${user.name} was deleted.`);
     });
   })
   .put(jwtVerification, (request, response) => {
-    User.findByIdAndUpdate(request.params.id, request.body, { new: true }, (error, user) => {
+    UserModel.findByIdAndUpdate(request.params.id, request.body, { new: true }, (error, user) => {
       if (error) return response.status(500).send('There was a problem updating the user.');
       response.status(200).send(user);
     });
   });
 
 // Resource related API routes
-apiRoutes
+routes
   .route('/resources/')
   .get((request, response) => {
-    Resource.find({}, (error, resources) => {
+    ResourceModel.find({}, (error, resources) => {
       if (error) return response.status(500).send('HTTP 500 INTERNAL SERVER ERROR');
       response.status(200).send(resources);
     });
   })
   .post((request, response) => {
     console.log(request);
-    const newResource = new Resource(request.body);
+    const newResource = new ResourceModel(request.body);
     newResource.save((error, resource) => {
       if (error) {
         response.status(500).send('HTTP 500 INTERNAL SERVER ERROR');
@@ -67,23 +67,23 @@ apiRoutes
     });
   });
 
-apiRoutes
+routes
   .route('/resources/:id')
   .get((request, response) => {
-    Resource.findById(request.params.id, (error, resource) => {
+    ResourceModel.findById(request.params.id, (error, resource) => {
       if (error) return response.status(500).send('HTTP 500 INTERNAL SERVER ERROR');
       if (!resource) return response.status(404).send('HTTP 404 NOT FOUND');
       response.status(200).send(resource);
     });
   })
   .delete((request, response) => {
-    Resource.findByIdAndRemove(request.params.id, (error, resource) => {
+    ResourceModel.findByIdAndRemove(request.params.id, (error, resource) => {
       if (error) return response.status(500).send('HTTP 500 INTERNAL SERVER ERROR');
       response.status(200).send(`UserModel: ${request.params.id} was deleted.`);
     });
   })
   .put(jwtVerification, (request, response) => {
-    Resource.findByIdAndUpdate(
+    ResourceModel.findByIdAndUpdate(
       request.params.id,
       request.body,
       { new: true },
@@ -95,16 +95,16 @@ apiRoutes
   });
 
 // Booking related API routes
-apiRoutes
+routes
   .route('/bookings/')
   .get((request, response) => {
-    Booking.find({}, (error, bookings) => {
+    BookingModel.find({}, (error, bookings) => {
       if (error) return response.status(500).send('HTTP 500 INTERNAL SERVER ERROR');
       response.status(200).send(bookings);
     });
   })
   .post((request, response) => {
-    Booking.create(
+    BookingModel.create(
       {
         name: request.body.username,
         resourceID: request.body.resourceID,
@@ -118,11 +118,15 @@ apiRoutes
     );
   });
 
-apiRoutes.route('/bookings/:id').delete((request, response) => {
-  Booking.findByIdAndRemove(request.params.id, (error, resource) => {
+routes.route('/bookings/:id').delete((request, response) => {
+  BookingModel.findByIdAndRemove(request.params.id, (error, resource) => {
     if (error) return response.status(500).send('HTTP 500 INTERNAL SERVER ERROR');
     response.status(200).send(`Booking: ${request.params.id} was deleted.`);
   });
 });
 
-module.exports = apiRoutes;
+// Authentication routes
+
+
+
+module.exports = routes;

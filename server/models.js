@@ -1,17 +1,28 @@
 const mongoose = require('mongoose');
+const passportLocalMongoose = require('passport-local-mongoose');
 
 const { Schema } = mongoose;
 
-const User = mongoose.model(
+const UserModel = mongoose.model(
   'User',
   new Schema({
     name: String,
     email: String,
-    password: String,
-  }),
+    username: {
+      type: String,
+      index: true,
+      unique: true,
+      dropDups: true,
+      required: true,
+    },
+    passwordHash: { //salted and hashed using bcrypt
+      type: String,
+      required: true,
+    },
+  }).plugin(passportLocalMongoose),
 );
 
-const Resource = mongoose.model(
+const ResourceModel = mongoose.model(
   'Resource',
   new Schema({
     resourceID: Schema.Types.ObjectId,
@@ -28,7 +39,7 @@ const Resource = mongoose.model(
   }),
 );
 
-const Booking = mongoose.model(
+const BookingModel = mongoose.model(
   'Booking',
   new Schema({
     bookingID: Schema.Types.ObjectId,
@@ -40,4 +51,4 @@ const Booking = mongoose.model(
   }),
 );
 
-module.exports = { User, Resource, Booking };
+module.exports = { UserModel, ResourceModel, BookingModel };

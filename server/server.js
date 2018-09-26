@@ -1,8 +1,10 @@
 const express = require('express');
 const mongoose = require('mongoose'); // Imports mongoose driver for connection to cloud-hosted mongoDB at mlab.com
+const passport = require('passport');
 const cors = require('cors'); // Imports cors middleware to allow Cross-origin resource sharing
 const morgan = require('morgan');
-const apiRoutes = require('./apiRoutes');
+
+const routes = require('./routes');
 
 const app = express();
 
@@ -13,9 +15,10 @@ app.use(express.json()); // Instructs app to use express.json() to handle JSON
 app.use(express.urlencoded({ extended: true })); // Instructs app to use express.urlencoded to handle form-data from user
 app.use(express.static('../client/build')); // Instructs app to use express.static (./public) at initial GET requests and serve this file to user
 
-app.use(apiRoutes);
+app.use(passport.initialize());
 
-mongoose.Promise = global.Promise;
+app.use(routes);
+
 mongoose.connect(
   process.env.DB_CONN,
   { useNewUrlParser: true },
