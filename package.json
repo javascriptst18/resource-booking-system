@@ -5,7 +5,9 @@
   "main": "server.js",
   "scripts": {
     "start": "node server.js",
-    "dev": "nodemon -r dotenv/config server.js dotenv_config_path=.env.local"
+    "dev": "concurrently \"mongod\" \"NODE_ENV=dev nodemon server.js\"",
+    "local_test": "NODE_ENV=local_test mocha --exit",
+    "pm2": "pm2 start ecosystem.config.js"
   },
   "repository": {
     "type": "git",
@@ -31,17 +33,19 @@
     "moment": "^2.22.2",
     "mongoose": "^5.2.13",
     "morgan": "^1.9.0",
-    "npm": "^6.4.1",
+    "npm": "^6.9.0",
     "passport": "^0.4.0",
     "passport-local-mongoose": "^5.0.1",
     "react-moment": "^0.7.9"
   },
   "devDependencies": {
     "babel-eslint": "^8.2.6",
-    "eslint": "^5.3.0",
+    "concurrently": "^4.1.0",
+    "eslint": "^5.16.0",
     "eslint-config-airbnb": "^17.1.0",
     "eslint-plugin-import": "^2.14.0",
     "eslint-plugin-jsx-a11y": "^6.1.1",
-    "eslint-plugin-react": "^7.11.0"
+    "eslint-plugin-react": "^7.11.0",
+    "nodemon": "^1.19.1"
   }
 }
